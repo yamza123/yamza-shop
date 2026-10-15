@@ -125,8 +125,32 @@
   .qty-control button{width:40px; height:40px; font-size:18px; font-weight:700;}
   .qty-control input{ width:50px; text-align:center; border:none; border-left:1px solid var(--border); border-right:1px solid var(--border); height:40px; font-size:15px; font-weight:700; }
   
-  .btn-order{ width:100%; background:var(--accent); color:#fff; font-size:16px; font-weight:700; padding:18px; border-radius:12px; cursor: pointer; transition:.2s;}
-  .btn-order:hover{background:var(--accent-dark); transform:translateY(-2px); box-shadow:0 8px 20px rgba(58,155,158,0.3);}
+  /* BOUTON WA3R B MOUVEMENT (KATN9EZ) W SHADA MN RAS L RAS */
+  @keyframes bounceBtn {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+  .btn-order{ 
+    width:100%; 
+    background:var(--accent); 
+    color:#fff; 
+    font-size:16px; 
+    font-weight:700; 
+    padding:16px 20px; 
+    border-radius:50px; 
+    cursor: pointer; 
+    transition:.2s;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(58,155,158,0.3);
+    animation: bounceBtn 2s infinite ease-in-out;
+  }
+  .btn-order:hover{
+    background:var(--accent-dark); 
+    animation: none;
+    transform:scale(1.02);
+  }
+  .btn-order-title { display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 17px; font-weight: 800; margin-bottom: 2px; }
+  .btn-order-sub { font-size: 13px; font-weight: 500; opacity: 0.95; }
 
   .description-section{padding:10px 24px 60px; text-align: center;}
   .desc-img-container img{ width: 100%; max-width: 900px; border-radius: 20px; margin: 0 auto; box-shadow: var(--shadow); display: block;}
@@ -177,14 +201,24 @@
   .gallery-upload-item { display: flex; flex-direction: column; align-items: center;}
   .btn-delete-row { background: var(--danger); color: #fff; padding: 6px 10px; border-radius: 6px; font-size: 11px; font-weight: 600; cursor: pointer; border: none; font-family: var(--font); }
 
-  /* CHECKOUT MODAL */
+  /* EXPRESS CHECKOUT MODAL (DESIGN JDID) */
   .modal-overlay { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); z-index: 2000; display: none; align-items: center; justify-content: center; padding: 20px;}
   .modal-overlay.show { display: flex; }
-  .modal-box { background: #fff; width: 100%; max-width: 500px; border-radius: 20px; padding: 30px; position: relative; box-shadow: 0 20px 40px rgba(0,0,0,0.15); max-height: 95vh; overflow-y: auto; }
-  .close-modal { position: absolute; top: 20px; right: 20px; font-size: 24px; color: var(--text-light); cursor:pointer; background: none; border: none;}
-  .modal-header-logo { text-align: center; margin-bottom: 20px; }
-  .checkout-form input { width: 100%; padding: 14px; border: 1px solid var(--border); border-radius: 10px; margin-bottom: 15px; font-family: var(--font); outline: none;}
-  .btn-submit-order { width: 100%; background: var(--accent); color: #fff; padding: 16px; border-radius: 12px; font-weight: 700; margin-top: 10px; cursor: pointer; border: none; font-family: var(--font);}
+  .modal-box { background: #fff; width: 100%; max-width: 480px; border-radius: 24px; padding: 25px; position: relative; box-shadow: 0 25px 50px rgba(0,0,0,0.25); max-height: 95vh; overflow-y: auto; }
+  .close-modal { position: absolute; top: 20px; right: 20px; font-size: 22px; color: var(--text-light); cursor:pointer; background: none; border: none; z-index: 10;}
+  .modal-header-logo { text-align: center; margin-bottom: 15px; }
+  
+  .checkout-input-group { display: flex; align-items: center; border: 1px solid var(--border); border-radius: 12px; margin-bottom: 15px; background: #fff; overflow: hidden; transition: 0.2s; }
+  .checkout-input-group.error { border-color: var(--danger) !important; box-shadow: 0 0 0 3px rgba(255,75,75,0.15); }
+  .checkout-icon-box { width: 50px; height: 52px; background: #f1f5f5; display: flex; align-items: center; justify-content: center; color: var(--text-light); font-size: 16px; border-right: 1px solid var(--border); }
+  .checkout-input-group input { width: 100%; padding: 14px; border: none; outline: none; font-family: var(--font); font-size: 14px; background: transparent; }
+  
+  .btn-submit-order { width: 100%; background: var(--accent); color: #fff; padding: 16px; border-radius: 12px; font-weight: 700; margin-top: 5px; cursor: pointer; border: none; font-family: var(--font); font-size: 16px; transition: 0.2s;}
+  .btn-submit-order:hover { background: var(--accent-dark); }
+
+  .checkout-features { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 20px; border-top: 1px solid var(--border); padding-top: 20px; text-align: center; }
+  .checkout-feature-item img, .checkout-feature-item i { font-size: 22px; color: var(--accent); margin-bottom: 4px; }
+  .checkout-feature-item span { font-size: 10px; color: var(--text-light); font-weight: 600; display: block; line-height: 1.2; }
 
   @media(max-width:992px){ .product-grid{grid-template-columns:repeat(2,1fr);} .product-top{grid-template-columns:1fr; gap:32px;} .trust-grid{grid-template-columns:repeat(2,1fr);} }
 </style>
@@ -196,7 +230,7 @@
     <nav class="nav-left">
       <a href="#" class="nav-link active" data-page="page-home">Accueil</a>
       <a href="#" class="nav-link" data-page="page-home-products">Produits</a>
-      <a href="#" class="nav-link" data-page="page-contact">Contact</a>
+      <a href="#" class="nav-link" data-page="page-contact" onclick="openContactInfo(event)">Contact</a>
     </nav>
     <a href="#" class="logo" id="logoHome">YAM<span>ZA</span></a>
     <div class="nav-right">
@@ -214,7 +248,7 @@
   <section class="hero">
     <div class="hero-inner">
       <div class="hero-content">
-        <span class="hero-tag">🍂 Les Deals de l'Automne</span>
+        <span class="hero-tag" id="site_heroTag">🍂 Les Deals de l'Automne</span>
         <h1 id="site_heroTitle">Confort Absolu,<br>Jusqu'à -50%</h1>
         <p id="site_heroDesc">Rafraîchissez votre espace avec nos meilleurs articles — livraison rapide et paiement à la réception.</p>
         <a href="#productsGrid" class="btn-primary">Profiter des offres →</a>
@@ -259,7 +293,12 @@
           <input type="text" id="qtyInput" value="1" readonly>
           <button onclick="changeQty(1)">+</button>
       </div>
-      <button class="btn-order" onclick="openModal()">Commander - Paiement à la livraison</button>
+      
+      <!-- BOUTON WA3R B MOUVEMENT W 2 SSOUR -->
+      <button class="btn-order" onclick="openModal()">
+        <div class="btn-order-title"><i class="fas fa-shopping-cart"></i> أطلب من هنا - Commander</div>
+        <div class="btn-order-sub">Paiement à la livraison</div>
+      </button>
     </div>
   </div>
   <section class="description-section container">
@@ -313,7 +352,7 @@
       </div>
     </div>
     <div id="tab-products" class="admin-tab-content">
-      <p style="font-size:13px; color:gray; margin-bottom:15px;">Hna t9der tzid 9, 10 awla kter d l'produits, tbeddel awla tmsah ay produit, w trfe3 <strong>Principale</strong>, <strong>Galerie</strong>, w <strong>Description</strong>.</p>
+      <p style="font-size:13px; color:gray; margin-bottom:15px;">T9der tzid, tbeddel awla tmsah ay produit, w trfe3 les images dyalo.</p>
       <div class="admin-table-container">
         <table class="admin-table">
           <thead>
@@ -338,6 +377,10 @@
           <input type="text" id="set_wa" value="212600000000">
         </div>
         <div class="input-group">
+          <label>Texte Promo (Hero Tag)</label>
+          <input type="text" id="set_heroTag" value="🍂 Les Deals de l'Automne">
+        </div>
+        <div class="input-group">
           <label>Gros Titre Accueil (Hero)</label>
           <input type="text" id="set_heroTitle" value="Confort Absolu, Jusqu'à -50%">
         </div>
@@ -350,32 +393,71 @@
   </div>
 </section>
 
+<!-- EXPRESS CHECKOUT MODAL (DESIGN BHAL LE EXEMPLE + VALIDATION 7AMRA) -->
 <div class="modal-overlay" id="checkoutModal">
   <div class="modal-box">
     <button class="close-modal" onclick="closeModal()">✕</button>
     <div class="modal-header-logo"><h2 class="logo">YAM<span>ZA</span></h2></div>
-    <div class="modal-order-summary">
-      <div style="display:flex; gap:15px; align-items:center; margin-bottom:20px; border-bottom:1px solid #eee; padding-bottom:15px;">
-        <img id="modalImg" src="" style="width:60px; height:60px; border-radius:10px; object-fit:cover;">
+    
+    <div class="modal-order-summary" style="margin-bottom:20px; border-bottom:1px solid var(--border); padding-bottom:15px;">
+      <div style="display:flex; gap:15px; align-items:center;">
+        <img id="modalImg" src="" style="width:65px; height:65px; border-radius:12px; object-fit:cover; border:1px solid var(--border);">
         <div>
-          <div style="font-weight:600; font-size:14px;" id="modalQtyTitle"></div>
-          <div style="font-weight:700; color:var(--accent-dark); font-size:15px;" id="modalPrice"></div>
+          <div style="font-weight:700; font-size:14px; color:#1a202c; line-height:1.3; margin-bottom:4px;" id="modalQtyTitle"></div>
+          <div style="font-weight:800; color:var(--accent-dark); font-size:16px;" id="modalPrice"></div>
         </div>
       </div>
     </div>
+
     <form class="checkout-form" onsubmit="submitOrder(event)">
-      <input type="text" id="clientName" placeholder="Nom complet" required>
-      <input type="tel" id="clientPhone" placeholder="Téléphone (06 XX XX XX XX)" required>
-      <input type="text" id="clientCity" placeholder="Ville" required>
-      <input type="text" id="clientAddress" placeholder="Adresse complète" required>
-      <button type="submit" class="btn-submit-order">ACHETER MAINTENANT</button>
+      <div class="checkout-input-group" id="group_clientName">
+        <div class="checkout-icon-box"><i class="far fa-user"></i></div>
+        <input type="text" id="clientName" placeholder="Nom complet *" required>
+      </div>
+      
+      <div class="checkout-input-group" id="group_clientPhone">
+        <div class="checkout-icon-box"><i class="fas fa-phone-alt"></i></div>
+        <input type="tel" id="clientPhone" placeholder="Numéro de téléphone *" required>
+      </div>
+
+      <div class="checkout-input-group" id="group_clientAddress">
+        <div class="checkout-icon-box"><i class="fas fa-map-marker-alt"></i></div>
+        <input type="text" id="clientAddress" placeholder="Adresse de livraison complète *" required>
+      </div>
+
+      <div class="checkout-input-group" id="group_clientCity">
+        <div class="checkout-icon-box"><i class="fas fa-city"></i></div>
+        <input type="text" id="clientCity" placeholder="Ville *" required>
+      </div>
+
+      <button type="submit" class="btn-submit-order" id="btnSubmitOrderText">ACHETER - 0.00 dh</button>
     </form>
+
+    <div class="checkout-features">
+      <div class="checkout-feature-item">
+        <i class="fas fa-truck"></i>
+        <span>Livraison en 1–2 jours</span>
+      </div>
+      <div class="checkout-feature-item">
+        <i class="fas fa-money-bill-wave"></i>
+        <span>Paiement à la livraison</span>
+      </div>
+      <div class="checkout-feature-item">
+        <i class="fas fa-phone-volume"></i>
+        <span>Confirmation par téléphone</span>
+      </div>
+      <div class="checkout-feature-item">
+        <i class="fas fa-undo"></i>
+        <span>Échange sous 7 jours</span>
+      </div>
+    </div>
   </div>
 </div>
 
 <script>
 const DEFAULT_SETTINGS = {
   wa: "212600000000",
+  heroTag: "🍂 Les Deals de l'Automne",
   heroTitle: "Confort Absolu,<br>Jusqu'à -50%",
   heroDesc: "Rafraîchissez votre espace avec nos meilleurs articles — livraison rapide et paiement à la réception."
 };
@@ -398,6 +480,7 @@ let currentPage = 1;
 const itemsPerPage = 8;
 
 function initSite() {
+  document.getElementById('site_heroTag').innerText = SITE_SETTINGS.heroTag || DEFAULT_SETTINGS.heroTag;
   document.getElementById('site_heroTitle').innerHTML = SITE_SETTINGS.heroTitle;
   document.getElementById('site_heroDesc').innerText = SITE_SETTINGS.heroDesc;
   
@@ -498,9 +581,15 @@ function switchAdminTab(tabId) {
   document.getElementById(tabId).classList.add('active');
 }
 
+function openContactInfo(e) {
+  e.preventDefault();
+  alert("Service Client YAMZA:\nWhatsApp: +" + SITE_SETTINGS.wa + "\nDisponibilité: 24/7 pour vos commandes !");
+}
+
 function openAdminPanel() {
   showPage('page-admin');
   document.getElementById('set_wa').value = SITE_SETTINGS.wa;
+  document.getElementById('set_heroTag').value = SITE_SETTINGS.heroTag || DEFAULT_SETTINGS.heroTag;
   document.getElementById('set_heroTitle').value = SITE_SETTINGS.heroTitle;
   document.getElementById('set_heroDesc').value = SITE_SETTINGS.heroDesc;
   renderAdminProductsList();
@@ -622,6 +711,7 @@ function handleImageUpload(event, index, type) {
 function saveAllAdminData() {
   SITE_SETTINGS = {
     wa: document.getElementById('set_wa').value,
+    heroTag: document.getElementById('set_heroTag').value,
     heroTitle: document.getElementById('set_heroTitle').value,
     heroDesc: document.getElementById('set_heroDesc').value
   };
@@ -654,6 +744,7 @@ function saveAllAdminData() {
 }
 
 document.querySelectorAll('.nav-link').forEach(link=>{
+  if(link.getAttribute('onclick')) return; // skip contact
   link.addEventListener('click', e=>{
     e.preventDefault();
     document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));
@@ -703,19 +794,38 @@ const checkoutModal = document.getElementById('checkoutModal');
 function openModal() {
   const p = ALL_PRODUCTS.find(x => x.id === activeProductId);
   const qty = parseInt(document.getElementById('qtyInput').value);
+  const total = p.price * qty;
   document.getElementById('modalImg').src = productImg(p.seed); 
   document.getElementById('modalQtyTitle').textContent = `${qty}x ${p.title}`;
-  document.getElementById('modalPrice').textContent = `${p.price.toFixed(2)} dh`;
+  document.getElementById('modalPrice').textContent = `${total.toFixed(2)} dh`;
+  document.getElementById('btnSubmitOrderText').textContent = `ACHETER - ${total.toFixed(2)} dh`;
+  
+  // Clear error styles
+  ['clientName', 'clientPhone', 'clientAddress', 'clientCity'].forEach(id => {
+    document.getElementById('group_' + id).classList.remove('error');
+  });
+
   checkoutModal.classList.add('show');
 }
 function closeModal() { checkoutModal.classList.remove('show'); }
 
 function submitOrder(e) { 
   e.preventDefault(); 
-  const name = document.getElementById('clientName').value;
-  const phone = document.getElementById('clientPhone').value;
-  const city = document.getElementById('clientCity').value;
-  const address = document.getElementById('clientAddress').value;
+  const name = document.getElementById('clientName').value.trim();
+  const phone = document.getElementById('clientPhone').value.trim();
+  const address = document.getElementById('clientAddress').value.trim();
+  const city = document.getElementById('clientCity').value.trim();
+
+  let hasError = false;
+  if(!name) { document.getElementById('group_clientName').classList.add('error'); hasError = true; } else { document.getElementById('group_clientName').classList.remove('error'); }
+  if(!phone) { document.getElementById('group_clientPhone').classList.add('error'); hasError = true; } else { document.getElementById('group_clientPhone').classList.remove('error'); }
+  if(!address) { document.getElementById('group_clientAddress').classList.add('error'); hasError = true; } else { document.getElementById('group_clientAddress').classList.remove('error'); }
+  if(!city) { document.getElementById('group_clientCity').classList.add('error'); hasError = true; } else { document.getElementById('group_clientCity').classList.remove('error'); }
+
+  if(hasError) {
+    return; // Ila chi wahd ma3merch, katch3el 7amra w maydwezch
+  }
+
   const p = ALL_PRODUCTS.find(x => x.id === activeProductId);
   const qty = parseInt(document.getElementById('qtyInput').value);
   const totalStr = (p.price * qty).toFixed(2) + ' dh';
