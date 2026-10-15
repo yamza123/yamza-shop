@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YAMZA — Achetez en toute confiance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+  :root{
+    --accent:#3a9b9e;
+    --accent-dark:#2c7a7c;
+    --accent-light:#eaf5f5;
+    --danger:#ff4b4b;
+    --text:#2d3748;
+    --text-light:#718096;
+    --bg:#ffffff;
+    --bg-soft:#f7fafc;
+    --border:#e2e8f0;
+    --radius:16px;
+    --shadow:0 4px 18px rgba(15,23,42,.06);
+    --shadow-hover:0 14px 32px rgba(15,23,42,.14);
+    --font:'Poppins', sans-serif;
+    
+    --neo-bg: #e0e5ec;
+    --neo-shadow-1: 9px 9px 16px rgb(163,177,198,0.6), -9px -9px 16px rgba(255,255,255, 0.5);
+    --neo-shadow-inset: inset 6px 6px 10px 0 rgba(163, 177, 198, 0.5), inset -6px -6px 10px 0 rgba(255, 255, 255, 0.5);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:var(--font); color:var(--text); background:var(--bg);
+    padding-top:78px; -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%; display:block;}
+  a{text-decoration:none; color:inherit;}
+  button{font-family:var(--font); cursor:pointer; border:none; background:none;}
+  .container{max-width:1240px; margin:0 auto; padding:0 24px;}
+
+  /* ===== HEADER L'ASLI ===== */
+  .site-header{
+    position:fixed; top:0; left:0; right:0; z-index:1000;
+    background:rgba(255,255,255,.98); box-shadow: 0 1px 10px rgba(0,0,0,0.05);
+  }
+  .header-inner{ height:78px; display:flex; align-items:center; justify-content:space-between; }
+  .nav-left{display:flex; align-items:center; gap:32px; flex:1;}
+  .nav-link{ font-size:14px; font-weight:600; color:var(--text); position:relative; padding:6px 0; transition:.2s; }
+  .nav-link:hover, .nav-link.active{color:var(--accent-dark);}
+  .nav-link.active::after{ content:''; position:absolute; bottom:-4px; left:0; right:0; height:2px; background:var(--accent); }
+  
+  .logo{ font-size:26px; font-weight:800; letter-spacing:1px; color:var(--accent); flex:1; text-align:center; cursor:pointer; user-select:none; }
+  .logo span{color:var(--text);}
+  
+  .nav-right{display:flex; align-items:center; gap:16px; flex:1; justify-content:flex-end;}
+  .icon-btn{ color:var(--text); transition:.2s; display: flex; align-items: center; gap: 4px; font-size: 18px;}
+  .icon-btn:hover{color:var(--accent-dark);}
+  .cart-wrap { position: relative; }
+  .cart-count { position: absolute; top: -8px; right: -8px; background: var(--accent); color: #fff; font-size: 10px; font-weight: 700; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center;}
+
+  /* ===== PAGES ===== */
+  .page{display:none; animation:fade .4s ease;}
+  .page.active{display:block;}
+  @keyframes fade{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
+
+  /* ===== HERO L'ASLI ===== */
+  .hero{margin:24px auto 0; max-width:1240px; padding:0 24px;}
+  .hero-inner{ border-radius:24px; overflow:hidden; position:relative; min-height:440px; display:flex; align-items:center; background:#e2e8f0; padding:60px; }
+  .hero-inner::before{ content:''; position:absolute; inset:0; background:url('https://picsum.photos/seed/yamza-hero2/1400/700') center/cover; opacity:0.6; }
+  .hero-content{position:relative; z-index:2; max-width:560px; color:#1e293b;}
+  .hero-tag{ display:inline-block; background:var(--accent); color:#fff; padding:6px 16px; border-radius:30px; font-size:12px; font-weight:600; margin-bottom:18px; }
+  .hero-content h1{font-size:42px; font-weight:800; line-height:1.15; margin-bottom:16px; color: #1a202c;}
+  .hero-content p{font-size:15px; font-weight:500; margin-bottom:28px; line-height:1.6; color: #2d3748;}
+  .btn-primary{background:var(--accent); color:#fff; padding:14px 28px; border-radius:12px; font-weight:600; font-size:15px; display:inline-block; transition:.2s;}
+  .btn-primary:hover{background:var(--accent-dark); transform:translateY(-2px);}
+
+  /* ===== TRUST BAR ===== */
+  .trust-bar{background:#fff; margin:20px auto 40px; max-width:1240px; padding:20px 24px;}
+  .trust-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:15px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 30px 0;}
+  .trust-item{display:flex; align-items:center; gap:12px;}
+  .trust-icon{ width:40px; height:40px; min-width:40px; color:var(--accent); display:flex; align-items:center; justify-content:center; font-size: 20px;}
+  .trust-item h4{font-size:13px; font-weight:700; margin-bottom:2px; color: #1a202c;}
+  .trust-item p{font-size:12px; color:var(--text-light);}
+
+  /* ===== PRODUCTS GRID ===== */
+  .products-section{padding:20px 24px 80px;}
+  .section-header{ display:flex; align-items:center; justify-content:space-between; margin-bottom:32px; }
+  .section-header h2{font-size:24px; font-weight:800; color: #1a202c;}
+  .view-all{ font-size:14px; font-weight:600; color:var(--accent-dark); transition:.2s; }
+  
+  .product-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:24px;}
+  .product-card{ background:transparent; position:relative; cursor:pointer; }
+  .product-card .img-wrap{aspect-ratio:1/1; overflow:hidden; border-radius:16px; margin-bottom: 12px; background:#f1f5f5;}
+  .product-card img{width:100%; height:100%; object-fit:cover; transition:.4s;}
+  .product-card:hover img{transform:scale(1.05);}
+  .badge-discount{ position:absolute; top:12px; left:12px; z-index:2; background:var(--danger); color:#fff; font-size:12px; font-weight:700; padding:6px 12px; border-radius:30px; }
+  
+  .product-title{font-size:14px; font-weight:500; color:#4a5568; line-height:1.4; margin-bottom:8px; height: 40px; overflow: hidden;}
+  .price-group{display:flex; align-items:center; gap:10px;}
+  .old-price{color:#a0aec0; text-decoration:line-through; font-size:12px;}
+  .new-price{color:#38b2ac; font-weight:700; font-size:18px;}
+
+  /* PAGINATION */
+  .pagination { display: flex; justify-content: center; align-items: center; gap: 15px; margin-top: 50px; }
+  .pagination span { font-size: 14px; color: #4a5568; cursor: pointer; font-weight: 500;}
+  .pagination span.active { border-bottom: 2px solid #4a5568; padding-bottom: 2px; font-weight: 700;}
+
+  /* ===== PRODUCT PAGE ===== */
+  .breadcrumb{padding:28px 24px 0; font-size:13px; color:var(--text-light);}
+  .breadcrumb span{color:var(--accent-dark); font-weight: 500;}
+  
+  .product-top{display:grid; grid-template-columns:1fr 1fr; gap:50px; padding:28px 24px 40px;}
+  
+  /* GALLERY (Tswira Kbira w Tsawer Sghar) */
+  .gallery-main{ border-radius:16px; overflow:hidden; background:#f1f5f5; aspect-ratio:1/1; margin-bottom:15px; border: 1px solid var(--border); }
+  .gallery-main img{width:100%; height:100%; object-fit:cover;}
+  .gallery-thumbs { display: flex; gap: 10px; }
+  .thumb { width: 80px; height: 80px; border-radius: 12px; overflow: hidden; border: 2px solid transparent; cursor: pointer; transition: 0.2s;}
+  .thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .thumb.active { border-color: var(--accent); }
+
+  .product-info h1{font-size:28px; font-weight:800; margin-bottom:15px; color: #1a202c;}
+  .price-row{display:flex; align-items:center; gap:14px; margin-bottom:30px;}
+  .price-row .old-price{font-size:16px;}
+  .price-row .new-price{font-size:32px; color:#38b2ac;}
+  
+  .qty-control{ display:flex; align-items:center; border:1px solid var(--border); border-radius:8px; overflow:hidden; width: max-content; margin-bottom: 30px;}
+  .qty-control button{width:40px; height:40px; font-size:18px; font-weight:700;}
+  .qty-control input{ width:50px; text-align:center; border:none; border-left:1px solid var(--border); border-right:1px solid var(--border); height:40px; font-size:15px; font-weight:700; }
+  
+  .btn-order{ width:100%; background:var(--accent); color:#fff; font-size:16px; font-weight:700; padding:18px; border-radius:12px; cursor: pointer; transition:.2s;}
+  .btn-order:hover{background:var(--accent-dark); transform:translateY(-2px); box-shadow:0 8px 20px rgba(58,155,158,0.3);}
+
+  /* ===== M3LOUMAT PRODUIT Lte7t ===== */
+  .description-section{padding:10px 24px 60px; text-align: center;}
+  .desc-img-container img{ width: 100%; max-width: 900px; border-radius: 20px; margin: 0 auto; box-shadow: var(--shadow); display: block;}
+  
+  /* ===== NEUMORPHIC LOGIN FORM ===== */
+  .login-page-neo { position: fixed; inset: 0; background: var(--neo-bg); z-index: 99999; display: none; align-items: center; justify-content: center; }
+  .login-page-neo.active { display: flex; }
+  .neo-circle { width: 450px; height: 450px; border-radius: 50%; background: var(--neo-bg); box-shadow: var(--neo-shadow-1); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; position: relative; }
+  .neo-close { position: absolute; top: 30px; right: 30px; font-size: 20px; color: #a0a5a8; cursor: pointer; background: none; border: none; padding: 10px; }
+  .neo-title { font-size: 36px; font-weight: 800; color: #4a5568; margin-bottom: 5px; }
+  .neo-subtitle { font-size: 14px; color: #a0aec0; margin-bottom: 30px; font-weight: 500; }
+  .neo-form { width: 100%; max-width: 300px; }
+  .neo-input-group { width: 100%; margin-bottom: 20px; position: relative; border-radius: 12px; background: var(--neo-bg); box-shadow: var(--neo-shadow-inset); display: flex; align-items: center; padding: 0 15px; }
+  .neo-input-group i { color: #a0aec0; font-size: 16px; margin-right: 10px;}
+  .neo-input { width: 100%; padding: 16px 0; border: none; outline: none; background: transparent; font-size: 15px; color: #4a5568; font-family: var(--font); font-weight: 500; }
+  .neo-btn { width: 100%; padding: 16px; border: none; border-radius: 12px; background: var(--neo-bg); color: #718096; font-size: 16px; font-weight: 700; letter-spacing: 1px; box-shadow: var(--neo-shadow-1); cursor: pointer; transition: 0.3s; }
+  .neo-btn:hover { color: #4a5568; }
+
+  /* ===== ADMIN PAGE (MNEDEM) ===== */
+  .admin-wrap{ max-width:1300px; margin:0 auto; padding:40px 24px; }
+  .admin-header{ display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; }
+  .btn-save-admin{ background:var(--accent); color:#fff; padding:12px 24px; border-radius:8px; font-weight:600; cursor:pointer; border: none; font-family: var(--font);}
+  
+  .admin-tabs { display: flex; gap: 15px; margin-bottom: 30px; border-bottom: 2px solid var(--border); padding-bottom: 15px;}
+  .admin-tab { padding: 10px 20px; font-size: 15px; font-weight: 600; color: var(--text-light); border-radius: 8px; transition: .2s; }
+  .admin-tab:hover { background: var(--bg-soft); }
+  .admin-tab.active { background: var(--accent); color: #fff; box-shadow: 0 4px 10px rgba(58,155,158,.3); }
+  .admin-tab-content { display: none; background: #fff; border-radius: 16px; padding: 25px; box-shadow: var(--shadow); border: 1px solid var(--border); }
+  .admin-tab-content.active { display: block; animation: fade .3s; }
+  
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .input-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 8px; color: var(--text-light); }
+  .input-group input, .input-group textarea { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; font-family: var(--font); outline: none; }
+  
+  .admin-table-container { overflow-x: auto; }
+  .admin-table{ width:100%; border-collapse:collapse; min-width: 1000px;}
+  .admin-table th, .admin-table td{ padding:12px; border-bottom:1px solid var(--border); text-align:left; font-size:13px; vertical-align: middle;}
+  .admin-table th{ background:var(--bg-soft); color:var(--text-light); font-weight:600; }
+  .admin-table input{ width:100%; padding:8px; border:1px solid var(--border); border-radius:6px; font-family:var(--font); font-size:13px; outline: none;}
+  .order-badge { background: var(--accent-light); color: var(--accent-dark); padding: 4px 10px; border-radius: 20px; font-weight: 600; font-size: 12px;}
+  
+  .upload-btn-wrap { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .btn-upload { background: var(--bg-soft); border: 1px solid var(--border); color: var(--text); padding: 6px 10px; font-size: 11px; border-radius: 6px; font-weight: 600; transition: .2s; cursor: pointer; width: 100%; text-align: center; font-family: var(--font);}
+  .btn-upload:hover { background: var(--border); }
+  .gallery-upload-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; margin-top: 5px;}
+  .gallery-upload-item { display: flex; flex-direction: column; align-items: center;}
+
+  /* ===== EXPRESS CHECKOUT MODAL ===== */
+  .modal-overlay { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); z-index: 2000; display: none; align-items: center; justify-content: center; padding: 20px;}
+  .modal-overlay.show { display: flex; }
+  .modal-box { background: #fff; width: 100%; max-width: 500px; border-radius: 20px; padding: 30px; position: relative; box-shadow: 0 20px 40px rgba(0,0,0,0.15); max-height: 95vh; overflow-y: auto; }
+  .close-modal { position: absolute; top: 20px; right: 20px; font-size: 24px; color: var(--text-light); cursor:pointer; background: none; border: none;}
+  .modal-header-logo { text-align: center; margin-bottom: 20px; }
+  .checkout-form input { width: 100%; padding: 14px; border: 1px solid var(--border); border-radius: 10px; margin-bottom: 15px; font-family: var(--font); outline: none;}
+  .btn-submit-order { width: 100%; background: var(--accent); color: #fff; padding: 16px; border-radius: 12px; font-weight: 700; margin-top: 10px; cursor: pointer; border: none; font-family: var(--font);}
+
+  @media(max-width:992px){ .product-grid{grid-template-columns:repeat(2,1fr);} .product-top{grid-template-columns:1fr; gap:32px;} .trust-grid{grid-template-columns:repeat(2,1fr);} }
+</style>
+</head>
+<body>
+
+<!-- ===================== HEADER ===================== -->
+<header class="site-header">
+  <div class="container header-inner">
+    <button class="icon-btn hamburger" id="hamburgerBtn" aria-label="Menu" style="display:none;">
+        <i class="fas fa-bars"></i>
+    </button>
+    
+    <nav class="nav-left" id="navLeft">
+      <a href="#" class="nav-link active" data-page="page-home">Accueil</a>
+      <a href="#" class="nav-link" data-page="page-home-products">Produits</a>
+      <a href="#" class="nav-link" data-page="page-contact">Contact</a>
+    </nav>
+    
+    <a href="#" class="logo" id="logoHome">YAM<span>ZA</span></a>
+    
+    <div class="nav-right">
+      <div class="icon-btn" style="cursor:pointer;"><i class="fas fa-search"></i></div>
+      <div class="icon-btn" style="cursor:pointer;"><i class="far fa-user"></i></div>
+      <div class="icon-btn cart-wrap" style="cursor:pointer;">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="cart-count">0</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== HOME PAGE ===================== -->
+<section class="page active" id="page-home">
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <span class="hero-tag">🍂 Les Deals de l'Automne</span>
+        <h1 id="site_heroTitle">Confort Absolu,<br>Jusqu'à -50%</h1>
+        <p id="site_heroDesc">Rafraîchissez votre espace avec nos meilleurs articles — livraison rapide et paiement à la réception.</p>
+        <a href="#productsGrid" class="btn-primary">Profiter des offres →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bar dyal Livraison bhal tsawer ljdad -->
+  <section class="trust-bar">
+    <div class="trust-grid">
+      <div class="trust-item"><div class="trust-icon"><i class="fas fa-truck"></i></div><div><h4>Livraison rapide</h4><p>Partout au Maroc</p></div></div>
+      <div class="trust-item"><div class="trust-icon"><i class="fas fa-money-bill-wave"></i></div><div><h4>Paiement à la livraison</h4><p>Payez en recevant</p></div></div>
+      <div class="trust-item"><div class="trust-icon"><i class="far fa-star"></i></div><div><h4>Produits de qualité</h4><p>Soigneusement vérifiés</p></div></div>
+      <div class="trust-item"><div class="trust-icon"><i class="fas fa-headset"></i></div><div><h4>Service client</h4><p>Toujours à votre écoute</p></div></div>
+    </div>
+  </section>
+
+  <section class="products-section container" id="productsGrid">
+    <div class="section-header">
+        <h2>Nos Produits</h2>
+        <a href="#" class="view-all">Tout afficher →</a>
+    </div>
+    <div class="product-grid" id="homeGrid"></div>
+    
+    <!-- L'Ar9am d sf7at (Pagination) lte7t bhal tswira -->
+    <div class="pagination">
+        <span class="active">1</span>
+        <span>2</span>
+        <span>3</span>
+        <span>...</span>
+        <span>19</span>
+        <span><i class="fas fa-chevron-right"></i></span>
+    </div>
+  </section>
+</section>
+
+<!-- ===================== PRODUCT PAGE ===================== -->
+<section class="page" id="page-product">
+  <div class="container breadcrumb">Accueil / Produits / <span id="crumbName">Produit</span></div>
+  <div class="container product-top">
+    <div class="gallery">
+      <div class="gallery-main"><img id="galleryMain" src=""></div>
+      <!-- Tsawer sghar (Thumbnails) -->
+      <div class="gallery-thumbs" id="galleryThumbs"></div>
+    </div>
+    <div class="product-info">
+      <h1 id="prodTitle">Nom du produit</h1>
+      <div class="price-row">
+        <span class="old-price" id="prodOld"></span>
+        <span class="new-price" id="prodNew"></span>
+      </div>
+      <div class="qty-control">
+          <button onclick="changeQty(-1)">−</button>
+          <input type="text" id="qtyInput" value="1" readonly>
+          <button onclick="changeQty(1)">+</button>
+      </div>
+      <button class="btn-order" onclick="openModal()">Commander - Paiement à la livraison</button>
+    </div>
+  </div>
+
+  <!-- Tswira dyal l'm3loumat lkbira lte7t -->
+  <section class="description-section container">
+    <div class="desc-img-container">
+      <img id="prodDescImg" src="" alt="Détails du produit">
+    </div>
+  </section>
+</section>
+
+
+<!-- ===================== NEUMORPHIC LOGIN SCREEN ===================== -->
+<div class="login-page-neo" id="animatedLoginScreen">
+    <div class="neo-circle">
+        <button class="neo-close" onclick="closeLoginScreen()">✕</button>
+        <h2 class="neo-title">Login</h2>
+        <p class="neo-subtitle">Sign in to your Admin account</p>
+        <form class="neo-form" onsubmit="verifyAdminLogin(event)">
+            <div class="neo-input-group">
+                <i class="fas fa-user"></i>
+                <input type="email" id="adminEmailInput" class="neo-input" placeholder="Email" required>
+            </div>
+            <div class="neo-input-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="adminPassInput" class="neo-input" placeholder="Password" required>
+            </div>
+            <button type="submit" class="neo-btn">SIGN IN</button>
+        </form>
+    </div>
+</div>
+
+<!-- ===================== ADMIN PAGE ===================== -->
+<section class="page" id="page-admin">
+  <div class="admin-wrap">
+    <div class="admin-header">
+      <h2>Tableau de Bord 🛠️</h2>
+      <button class="btn-save-admin" onclick="saveAllAdminData()">💾 Sauvegarder Tout</button>
+    </div>
+
+    <!-- TABS MENU (Fihom ra9m d commandes) -->
+    <div class="admin-tabs">
+      <button class="admin-tab active" onclick="switchAdminTab('tab-orders')">📦 Commandes (<span id="ordersCount">0</span>)</button>
+      <button class="admin-tab" onclick="switchAdminTab('tab-products')">🛍️ Produits & Images</button>
+      <button class="admin-tab" onclick="switchAdminTab('tab-settings')">⚙️ Paramètres du Site</button>
+    </div>
+
+    <!-- TAB 1: COMMANDES -->
+    <div id="tab-orders" class="admin-tab-content active">
+      <div class="admin-table-container">
+        <table class="admin-table">
+          <thead>
+            <tr><th>Date</th><th>Client</th><th>Téléphone</th><th>Ville & Adresse</th><th>Produit</th><th>Total</th></tr>
+          </thead>
+          <tbody id="ordersTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TAB 2: PRODUITS (M3a upload dyal Galerie) -->
+    <div id="tab-products" class="admin-tab-content">
+      <p style="font-size:13px; color:gray; margin-bottom:15px;">Daba momkin trfe3 <strong>Image Principale</strong>, <strong>Image Description</strong> (li katban lteht), w <strong>Galerie</strong> (4 Tsawer sghar li t7t lkbira f page produit).</p>
+      <div class="admin-table-container">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th style="width:110px; text-align:center;">Principale</th>
+              <th style="width:200px; text-align:center;">Galerie (4 Tsawer Sghar)</th>
+              <th style="width:110px; text-align:center;">Description (Lteht)</th>
+              <th>Nom du Produit</th>
+              <th style="width:90px;">Ancien Prix</th>
+              <th style="width:90px;">Nouveau Prix</th>
+            </tr>
+          </thead>
+          <tbody id="adminProductList"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TAB 3: PARAMETRES -->
+    <div id="tab-settings" class="admin-tab-content">
+      <div class="form-grid">
+        <div class="input-group">
+          <label>Numéro WhatsApp (ex: 2126000000)</label>
+          <input type="text" id="set_wa" value="212600000000">
+        </div>
+        <div class="input-group">
+          <label>Gros Titre Accueil (Hero)</label>
+          <input type="text" id="set_heroTitle" value="Confort Absolu, Jusqu'à -50%">
+        </div>
+        <div class="input-group">
+          <label>Sous-titre Accueil</label>
+          <textarea id="set_heroDesc" rows="2">Rafraîchissez votre espace avec nos meilleurs articles — livraison rapide et paiement à la réception.</textarea>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===================== EXPRESS CHECKOUT MODAL ===================== -->
+<div class="modal-overlay" id="checkoutModal">
+  <div class="modal-box">
+    <button class="close-modal" onclick="closeModal()">✕</button>
+    <div class="modal-header-logo"><h2 class="logo">YAM<span>ZA</span></h2></div>
+    <div class="modal-order-summary">
+      <div style="display:flex; gap:15px; align-items:center; margin-bottom:20px; border-bottom:1px solid #eee; padding-bottom:15px;">
+        <img id="modalImg" src="" style="width:60px; height:60px; border-radius:10px; object-fit:cover;">
+        <div>
+          <div style="font-weight:600; font-size:14px;" id="modalQtyTitle"></div>
+          <div style="font-weight:700; color:var(--accent-dark); font-size:15px;" id="modalPrice"></div>
+        </div>
+      </div>
+    </div>
+    <form class="checkout-form" onsubmit="submitOrder(event)">
+      <input type="text" id="clientName" placeholder="Nom complet" required>
+      <input type="tel" id="clientPhone" placeholder="Téléphone (06 XX XX XX XX)" required>
+      <input type="text" id="clientCity" placeholder="Ville" required>
+      <input type="text" id="clientAddress" placeholder="Adresse complète" required>
+      <button type="submit" class="btn-submit-order">ACHETER MAINTENANT</button>
+    </form>
+  </div>
+</div>
+
+<script>
+/* ================= REGLAGES ET DONNEES ================= */
+const DEFAULT_SETTINGS = {
+  wa: "212600000000",
+  heroTitle: "Confort Absolu,<br>Jusqu'à -50%",
+  heroDesc: "Rafraîchissez votre espace avec nos meilleurs articles — livraison rapide et paiement à la réception."
+};
+let SITE_SETTINGS = JSON.parse(localStorage.getItem('yamza_settings')) || DEFAULT_SETTINGS;
+
+const DEFAULT_PRODUCTS = [
+  {title:"PARFUM ET FRAÎCHEUR EN UN", seed:"yamza-m1", descImg:"yamza-d1", gal:["yamza-g1-1","yamza-g1-2","yamza-g1-3","yamza-g1-4"], old:499.00, price:189.99},
+  {title:"Écouteurs Sans Fil Galaxy", seed:"yamza-m2", descImg:"yamza-d2", gal:["yamza-g2-1","yamza-g2-2","yamza-g2-3","yamza-g2-4"], old:499.00, price:369.99},
+  {title:"Filet de Jeu Polyvalent", seed:"yamza-m3", descImg:"yamza-d3", gal:["yamza-g3-1","yamza-g3-2","yamza-g3-3","yamza-g3-4"], old:999.00, price:769.99},
+  {title:"Voiture Jouet Amusante", seed:"yamza-m4", descImg:"yamza-d4", gal:["yamza-g4-1","yamza-g4-2","yamza-g4-3","yamza-g4-4"], old:399.00, price:289.99},
+  {title:"Masseur de Main", seed:"yamza-m5", descImg:"yamza-d5", gal:["yamza-g5-1","yamza-g5-2","yamza-g5-3","yamza-g5-4"], old:650.00, price:549.99},
+  {title:"Tondeuse 2-en-1", seed:"yamza-m6", descImg:"yamza-d6", gal:["yamza-g6-1","yamza-g6-2","yamza-g6-3","yamza-g6-4"], old:355.00, price:289.99},
+  {title:"Antivol à Code", seed:"yamza-m7", descImg:"yamza-d7", gal:["yamza-g7-1","yamza-g7-2","yamza-g7-3","yamza-g7-4"], old:450.00, price:339.99},
+  {title:"Clé USB 4-en-1", seed:"yamza-m8", descImg:"yamza-d8", gal:["yamza-g8-1","yamza-g8-2","yamza-g8-3","yamza-g8-4"], old:499.00, price:399.99},
+];
+let BASE_PRODUCTS = JSON.parse(localStorage.getItem('yamza_products')) || DEFAULT_PRODUCTS;
+let ALL_PRODUCTS = [];
+let activeProductId = 1;
+
+function initSite() {
+  document.getElementById('site_heroTitle').innerHTML = SITE_SETTINGS.heroTitle;
+  document.getElementById('site_heroDesc').innerText = SITE_SETTINGS.heroDesc;
+  
+  ALL_PRODUCTS = [];
+  for(let i=0; i<8; i++){
+    const base = BASE_PRODUCTS[i % BASE_PRODUCTS.length];
+    ALL_PRODUCTS.push({ 
+      id:i+1, title: base.title, old: base.old, price: base.price, 
+      discount: Math.round(100 - (base.price/base.old*100)), seed: base.seed, 
+      descImg: base.descImg || base.seed,
+      gal: base.gal || [base.seed, base.seed, base.seed, base.seed] // Ila makanch galerie mkhzna, y3mrha b tswira lkbira
+    });
+  }
+  renderGrid(ALL_PRODUCTS);
+}
+initSite();
+
+function productImg(seed){
+  if(seed.startsWith('http') || seed.startsWith('data:image')) return seed;
+  return `https://picsum.photos/seed/${seed}/500/500`;
+}
+function descImgUrl(seed){
+  if(seed.startsWith('http') || seed.startsWith('data:image')) return seed;
+  return `https://picsum.photos/seed/${seed}/800/800`;
+}
+
+function cardHTML(p) {
+  return `
+    <div class="product-card" onclick="openProduct(${p.id})">
+      <span class="badge-discount">-${p.discount}%</span>
+      <div class="img-wrap"><img src="${productImg(p.seed)}"></div>
+      <div class="product-card-body">
+        <div class="product-title">${p.title}</div>
+        <div class="price-group"><span class="old-price">${p.old.toFixed(2)} dh</span><span class="new-price">${p.price.toFixed(2)} dh</span></div>
+      </div>
+    </div>`;
+}
+
+function renderGrid(products) {
+  document.getElementById('homeGrid').innerHTML = products.map(p => cardHTML(p)).join('');
+}
+
+/* ================= LOGIN ADMIN PAR URL (#admin) ================= */
+window.addEventListener('load', () => { checkAdminHash(); });
+window.addEventListener('hashchange', () => { checkAdminHash(); });
+
+function checkAdminHash() {
+  if(window.location.hash === '#admin') {
+    document.getElementById('animatedLoginScreen').classList.add('active');
+  } else {
+    document.getElementById('animatedLoginScreen').classList.remove('active');
+  }
+}
+
+function closeLoginScreen() {
+    document.getElementById('animatedLoginScreen').classList.remove('active');
+    window.location.hash = ''; 
+}
+
+function verifyAdminLogin(e) {
+  e.preventDefault();
+  const email = document.getElementById('adminEmailInput').value;
+  const pass = document.getElementById('adminPassInput').value;
+  
+  if(email === "yahyabelkhoukh00@gmail.com" && pass === "Moyah2010-") {
+    document.getElementById('animatedLoginScreen').classList.remove('active');
+    openAdminPanel();
+  } else {
+    alert("Email awla Mot de passe ghalet !");
+  }
+}
+
+/* ================= TABS SYSTEM ADMIN ================= */
+function switchAdminTab(tabId) {
+  document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.admin-tab-content').forEach(c => c.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById(tabId).classList.add('active');
+}
+
+/* ================= PANNEAU D'ADMINISTRATION ET UPLOAD ================= */
+function openAdminPanel() {
+  showPage('page-admin');
+  
+  document.getElementById('set_wa').value = SITE_SETTINGS.wa;
+  document.getElementById('set_heroTitle').value = SITE_SETTINGS.heroTitle;
+  document.getElementById('set_heroDesc').value = SITE_SETTINGS.heroDesc;
+  
+  let html = '';
+  BASE_PRODUCTS.forEach((p, index) => {
+    let pDesc = p.descImg || p.seed;
+    let pGal = p.gal || [p.seed, p.seed, p.seed, p.seed];
+    
+    html += `<tr>
+      <td>
+        <div class="upload-btn-wrap">
+            <img src="${productImg(p.seed)}" style="width:50px;height:50px;object-fit:cover;border-radius:6px;" id="preview_img_${index}">
+            <button class="btn-upload" onclick="document.getElementById('file_upload_${index}').click()">📂 Principale</button>
+            <input type="file" id="file_upload_${index}" style="display:none;" accept="image/png, image/jpeg, image/jpg" onchange="handleImageUpload(event, ${index}, 'main')">
+            <input type="hidden" id="admin_seed_${index}" value="${p.seed}">
+        </div>
+      </td>
+      <td>
+        <div class="gallery-upload-grid">
+            ${[0,1,2,3].map(g => `
+                <div class="gallery-upload-item">
+                    <img src="${productImg(pGal[g])}" style="width:40px;height:40px;object-fit:cover;border-radius:4px;" id="preview_gal_${index}_${g}">
+                    <button class="btn-upload" style="padding:4px; font-size:9px; margin-top:2px;" onclick="document.getElementById('file_gal_${index}_${g}').click()">📂 ${g+1}</button>
+                    <input type="file" id="file_gal_${index}_${g}" style="display:none;" accept="image/png, image/jpeg, image/jpg" onchange="handleImageUpload(event, ${index}, 'gal_${g}')">
+                    <input type="hidden" id="admin_gal_${index}_${g}" value="${pGal[g]}">
+                </div>
+            `).join('')}
+        </div>
+      </td>
+      <td>
+        <div class="upload-btn-wrap">
+            <img src="${descImgUrl(pDesc)}" style="width:50px;height:50px;object-fit:cover;border-radius:6px;" id="preview_desc_${index}">
+            <button class="btn-upload" onclick="document.getElementById('file_desc_${index}').click()">📂 Description</button>
+            <input type="file" id="file_desc_${index}" style="display:none;" accept="image/png, image/jpeg, image/jpg" onchange="handleImageUpload(event, ${index}, 'desc')">
+            <input type="hidden" id="admin_desc_${index}" value="${pDesc}">
+        </div>
+      </td>
+      <td><input type="text" id="admin_title_${index}" value="${p.title}"></td>
+      <td><input type="number" id="admin_old_${index}" value="${p.old}" step="0.01"></td>
+      <td><input type="number" id="admin_price_${index}" value="${p.price}" step="0.01"></td>
+    </tr>`;
+  });
+  document.getElementById('adminProductList').innerHTML = html;
+
+  let orders = JSON.parse(localStorage.getItem('yamza_orders')) || [];
+  
+  // Zedt lek hna ra9m dyal commandes f l'onglet kima tlbti
+  document.getElementById('ordersCount').innerText = orders.length;
+  
+  if(orders.length === 0) {
+    document.getElementById('ordersTableBody').innerHTML = `<tr><td colspan="6" style="text-align:center;color:gray;">Aucune commande pour le moment.</td></tr>`;
+  } else {
+    document.getElementById('ordersTableBody').innerHTML = orders.reverse().map(o => `
+      <tr>
+        <td style="font-size:12px; color:gray;">${o.date}</td>
+        <td><strong>${o.name}</strong></td>
+        <td><a href="https://wa.me/212${o.phone.replace(/^0/,'')}" target="_blank" style="color:var(--accent); font-weight:600;">${o.phone}</a></td>
+        <td>${o.city} - <span style="font-size:12px;color:gray;">${o.address}</span></td>
+        <td><span class="order-badge">${o.qty}x</span> ${o.product}</td>
+        <td style="font-weight:700; color:var(--accent-dark);">${o.total}</td>
+      </tr>
+    `).join('');
+  }
+}
+
+function handleImageUpload(event, index, type) {
+    const file = event.target.files[0];
+    if(!file) return;
+    
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+            const canvas = document.createElement('canvas');
+            const MAX_WIDTH = type === 'desc' ? 800 : 400; // Sghrt chwiya tsawer bach mat3mrch memroire (Localstorage)
+            const scaleSize = MAX_WIDTH / img.width;
+            canvas.width = MAX_WIDTH;
+            canvas.height = img.height * scaleSize;
+            
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            
+            const base64String = canvas.toDataURL('image/jpeg', 0.6); // Compression 60%
+            
+            if(type === 'main') {
+                document.getElementById('admin_seed_' + index).value = base64String;
+                document.getElementById('preview_img_' + index).src = base64String;
+            } else if (type === 'desc') {
+                document.getElementById('admin_desc_' + index).value = base64String;
+                document.getElementById('preview_desc_' + index).src = base64String;
+            } else if (type.startsWith('gal_')) {
+                const galIndex = type.split('_')[1];
+                document.getElementById('admin_gal_' + index + '_' + galIndex).value = base64String;
+                document.getElementById('preview_gal_' + index + '_' + galIndex).src = base64String;
+            }
+        }
+        img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+}
+
+function saveAllAdminData() {
+  SITE_SETTINGS = {
+    wa: document.getElementById('set_wa').value,
+    heroTitle: document.getElementById('set_heroTitle').value,
+    heroDesc: document.getElementById('set_heroDesc').value
+  };
+  localStorage.setItem('yamza_settings', JSON.stringify(SITE_SETTINGS));
+  
+  let newProducts = [];
+  BASE_PRODUCTS.forEach((p, index) => {
+    let galArray = [];
+    for(let i=0; i<4; i++){
+        galArray.push(document.getElementById(`admin_gal_${index}_${i}`).value);
+    }
+    newProducts.push({
+      title: document.getElementById(`admin_title_${index}`).value,
+      seed: document.getElementById(`admin_seed_${index}`).value,
+      descImg: document.getElementById(`admin_desc_${index}`).value,
+      gal: galArray,
+      old: parseFloat(document.getElementById(`admin_old_${index}`).value),
+      price: parseFloat(document.getElementById(`admin_price_${index}`).value)
+    });
+  });
+  
+  try {
+      localStorage.setItem('yamza_products', JSON.stringify(newProducts));
+      BASE_PRODUCTS = newProducts;
+      initSite();
+      alert("Modifications et images sauvegardées avec succès !");
+  } catch (e) {
+      alert("Erreur: Les images sont trop grandes pour l'espace gratuit (LocalStorage). Essayez des images de petite taille (moins de 100ko).");
+  }
+}
+
+/* ================= NAVIGATION ================= */
+document.querySelectorAll('.nav-link').forEach(link=>{
+  link.addEventListener('click', e=>{
+    e.preventDefault();
+    document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));
+    link.classList.add('active');
+    const target = link.dataset.page;
+    if(target === 'page-home-products'){
+      showPage('page-home'); setTimeout(()=>document.getElementById('productsGrid').scrollIntoView({behavior:'smooth'}), 150);
+    } else { showPage(target); }
+  });
+});
+
+function filterProducts() {
+  const query = document.getElementById('searchInput').value.toLowerCase();
+  showPage('page-home');
+  renderGrid(ALL_PRODUCTS.filter(p => p.title.toLowerCase().includes(query)));
+}
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+/* ================= PAGE PRODUIT (GALERIE) ================= */
+function openProduct(id){
+  const p = ALL_PRODUCTS.find(x => x.id === id);
+  if(!p) return;
+  activeProductId = id;
+  
+  document.getElementById('crumbName').textContent = p.title; 
+  document.getElementById('prodTitle').textContent = p.title;
+  document.getElementById('prodOld').textContent = `${p.old.toFixed(2)} dh`; 
+  document.getElementById('prodNew').textContent = `${p.price.toFixed(2)} dh`;
+  
+  // Tswira lkbira dyal produit tkhoued tswira lewla mn galerie (ou principale)
+  document.getElementById('galleryMain').src = productImg(p.gal ? p.gal[0] : p.seed);
+  
+  // Tsawer sghar (Galerie)
+  let thumbsHtml = '';
+  const galData = p.gal || [p.seed, p.seed, p.seed, p.seed];
+  for(let i=0; i<4; i++){
+      thumbsHtml += `<div class="thumb ${i===0?'active':''}" onclick="changeMainImg(this, '${productImg(galData[i])}')"><img src="${productImg(galData[i])}"></div>`;
+  }
+  document.getElementById('galleryThumbs').innerHTML = thumbsHtml;
+  
+  // Tswira lkbira dyal m3loumat lteht
+  document.getElementById('prodDescImg').src = descImgUrl(p.descImg);
+
+  showPage('page-product');
+}
+
+function changeMainImg(element, src) {
+    document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+    element.classList.add('active');
+    document.getElementById('galleryMain').src = src;
+}
+
+function changeQty(delta){ const input = document.getElementById('qtyInput'); let val = parseInt(input.value) + delta; if(val < 1) val = 1; input.value = val; }
+
+/* ================= CHECKOUT ================= */
+const checkoutModal = document.getElementById('checkoutModal');
+function openModal() {
+  const p = ALL_PRODUCTS.find(x => x.id === activeProductId);
+  const qty = parseInt(document.getElementById('qtyInput').value);
+  const totalStr = (p.price * qty).toFixed(2) + ' dh';
+  document.getElementById('modalImg').src = productImg(p.seed); 
+  document.getElementById('modalQtyTitle').textContent = `${qty}x ${p.title}`;
+  document.getElementById('modalPrice').textContent = `${p.price.toFixed(2)} dh`;
+  checkoutModal.classList.add('show');
+}
+function closeModal() { checkoutModal.classList.remove('show'); }
+
+function submitOrder(e) { 
+  e.preventDefault(); 
+  const name = document.getElementById('clientName').value;
+  const phone = document.getElementById('clientPhone').value;
+  const city = document.getElementById('clientCity').value;
+  const address = document.getElementById('clientAddress').value;
+  
+  const p = ALL_PRODUCTS.find(x => x.id === activeProductId);
+  const qty = parseInt(document.getElementById('qtyInput').value);
+  const totalStr = (p.price * qty).toFixed(2) + ' dh';
+  
+  let orders = JSON.parse(localStorage.getItem('yamza_orders')) || [];
+  orders.push({
+    date: new Date().toLocaleString('fr-FR'),
+    name: name, phone: phone, city: city, address: address,
+    product: p.title, qty: qty, total: totalStr
+  });
+  localStorage.setItem('yamza_orders', JSON.stringify(orders));
+
+  const msg = `Salam YAMZA! 👋\n\nBghit ndir commande jdida:\n📦 Produit: ${qty}x ${p.title}\n💰 Total: ${totalStr}\n\n👤 M3loumat l'klyan:\n- Smiya: ${name}\n- Tél: ${phone}\n- Ville: ${city}\n- Adresse: ${address}\n\nMerci!`;
+  const waLink = `https://wa.me/${SITE_SETTINGS.wa}?text=${encodeURIComponent(msg)}`;
+  
+  closeModal(); 
+  window.open(waLink, '_blank');
+}
+</script>
+</body>
+</html>
