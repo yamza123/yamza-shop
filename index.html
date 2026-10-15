@@ -9,12 +9,13 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
   :root{
-    /* LWAN JDAD B ZRE9 */
+    /* LWAN JDAD B ZRE9 (Bleu moderne) */
     --accent:#2563eb; 
     --accent-dark:#1d4ed8;
     --accent-light:#eff6ff;
-    --danger:#e53e3e;
-    --text:#1e293b;
+    --danger:#ef4444;
+    --success:#10b981;
+    --text:#0f172a;
     --text-light:#64748b;
     --bg:#ffffff;
     --bg-soft:#f8fafc;
@@ -27,16 +28,34 @@
   html{scroll-behavior:smooth;}
   body{
     font-family:var(--font); color:var(--text); background:var(--bg);
-    padding-top:78px; -webkit-font-smoothing:antialiased;
+    padding-top:114px; /* 78px (header) + 36px (top bar) */
+    -webkit-font-smoothing:antialiased;
   }
   img{max-width:100%; display:block;}
   a{text-decoration:none; color:inherit;}
   button{font-family:var(--font); cursor:pointer; border:none; background:none;}
   .container{max-width:1240px; margin:0 auto; padding:0 24px;}
 
-  /* HEADER & RECHERCHE */
+  /* BANDEAU DÉFILANT EN HAUT (MARQUEE) */
+  .top-marquee-bar {
+    position: fixed; top: 0; left: 0; right: 0; height: 36px;
+    background: #67e8f9; /* Cyan / Teal */
+    color: #fff; font-weight: 800; font-size: 11px; letter-spacing: 0.5px;
+    display: flex; align-items: center; overflow: hidden; z-index: 1001;
+  }
+  .marquee-content {
+    white-space: nowrap;
+    animation: marquee 25s linear infinite;
+    text-transform: uppercase;
+  }
+  @keyframes marquee {
+    0% { transform: translateX(100vw); }
+    100% { transform: translateX(-100%); }
+  }
+
+  /* HEADER */
   .site-header{
-    position:fixed; top:0; left:0; right:0; z-index:1000;
+    position:fixed; top:36px; left:0; right:0; z-index:1000;
     background:rgba(255,255,255,.98); box-shadow: 0 1px 10px rgba(0,0,0,0.05);
   }
   .header-inner{ height:78px; display:flex; align-items:center; justify-content:space-between; }
@@ -47,13 +66,16 @@
   
   .logo{ font-size:28px; font-weight:800; letter-spacing:1px; color:var(--accent); flex:1; text-align:center; cursor:pointer; user-select:none; transition:.2s;}
   .logo:hover { transform: scale(1.02); }
-  .logo span{color:var(--text);}
   
   .nav-right{display:flex; align-items:center; gap:16px; flex:1; justify-content:flex-end;}
   
   /* SEARCH BOX CSS */
   .search-wrapper { display: flex; align-items: center; position: relative; }
-  .search-input { width: 0; opacity: 0; padding: 10px; border: none; border-bottom: 2px solid var(--accent); background: transparent; font-family: var(--font); font-size: 14px; outline: none; transition: 0.3s ease; position: absolute; right: 35px; top: 50%; transform: translateY(-50%); }
+  .search-input { 
+    width: 0; opacity: 0; padding: 8px 12px; border: none; border-bottom: 2px solid var(--accent); 
+    background: #f8fafc; font-family: var(--font); font-size: 13px; font-weight: 500; outline: none; 
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: absolute; right: 35px; border-radius: 6px 6px 0 0;
+  }
   .search-input.active { width: 220px; opacity: 1; }
   
   .icon-btn{ color:var(--text); transition:.2s; display: flex; align-items: center; gap: 4px; font-size: 20px; z-index: 10;}
@@ -95,12 +117,12 @@
   .product-card .img-wrap{aspect-ratio:1/1; overflow:hidden; border-radius:16px; margin-bottom: 12px; background:#f8fafc;}
   .product-card img{width:100%; height:100%; object-fit:cover; transition:.35s;}
   .product-card:hover img{transform:scale(1.05);}
-  .badge-discount{ position:absolute; top:12px; left:12px; z-index:2; background:var(--danger); color:#fff; font-size:12px; font-weight:700; padding:6px 12px; border-radius:30px; }
+  .badge-discount{ position:absolute; top:12px; left:12px; z-index:2; background:var(--danger); color:#fff; font-size:12px; font-weight:700; padding:4px 10px; border-radius:30px; }
   
-  .product-title{font-size:14px; font-weight:600; color:var(--text); line-height:1.4; margin-bottom:8px; height: 40px; overflow: hidden;}
+  .product-title{font-size:14px; font-weight:700; color:var(--text); line-height:1.4; margin-bottom:8px; height: 40px; overflow: hidden;}
   .price-group{display:flex; align-items:center; gap:10px;}
-  .old-price{color:#94a3b8; text-decoration:line-through; font-size:13px;}
-  .new-price{color:var(--accent); font-weight:700; font-size:19px;}
+  .old-price{color:#94a3b8; text-decoration:line-through; font-size:12px; font-weight:500;}
+  .new-price{color:var(--accent); font-weight:800; font-size:18px;}
 
   /* PAGINATION */
   .pagination { display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 50px; }
@@ -122,8 +144,8 @@
 
   .product-info h1{font-size:28px; font-weight:800; margin-bottom:15px; color: #0f172a;}
   .price-row{display:flex; align-items:center; gap:14px; margin-bottom:30px;}
-  .price-row .old-price{font-size:16px;}
-  .price-row .new-price{font-size:32px; color:var(--accent);}
+  .price-row .old-price{font-size:16px; color:#94a3b8; text-decoration:line-through; font-weight:500;}
+  .price-row .new-price{font-size:32px; color:var(--accent); font-weight:800;}
   
   .qty-control{ display:flex; align-items:center; border:1px solid var(--border); border-radius:8px; overflow:hidden; width: max-content; margin-bottom: 25px;}
   .qty-control button{width:40px; height:40px; font-size:18px; font-weight:700;}
@@ -164,7 +186,7 @@
   .desc-img-container img{ width: 100%; max-width: 900px; border-radius: 20px; margin: 0 auto; box-shadow: var(--shadow); display: block;}
 
   /* ANIMATION LOGIN "SAK" */
-  .login-page-neo { position: fixed; inset: 0; background: #e2e8f0; z-index: 99999; display: none; align-items: center; justify-content: center; flex-direction: column; }
+  .login-page-neo { position: fixed; inset: 0; background: rgba(248, 250, 252, 0.9); backdrop-filter: blur(8px); z-index: 99999; display: none; align-items: center; justify-content: center; flex-direction: column; }
   .login-page-neo.active { display: flex; }
   
   .login-scene { position: relative; width: 100%; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
@@ -194,7 +216,7 @@
     100% { opacity: 1; transform: translateY(0) scale(1); }
   }
 
-  .login-card-anim h2 { font-size: 24px; font-weight: 800; color: #0f172a; margin-bottom: 6px; }
+  .login-card-anim h2 { font-size: 24px; font-weight: 800; color: #0f172a; margin-bottom: 6px; display:flex; align-items:center; justify-content:center; gap:8px;}
   .login-card-anim p { font-size: 13px; color: var(--text-light); margin-bottom: 24px; }
   .login-input { width: 100%; padding: 14px 16px; border: 1px solid var(--border); border-radius: 12px; margin-bottom: 14px; font-family: var(--font); font-size: 14px; outline: none; transition: .2s; }
   .login-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
@@ -228,7 +250,7 @@
   .form-group input, .form-group textarea{ width: 100%; padding: 11px 14px; border: 1px solid var(--border); border-radius: 10px; font-family: var(--font); font-size: 14px; outline: none; }
   .form-group input:focus, .form-group textarea:focus{ border-color: var(--accent); }
 
-  /* TABLE PRODUITS - FIX D L'ESPACE */
+  /* TABLE PRODUITS */
   .table-responsive{ overflow-x: auto; }
   .admin-table{ width: 100%; border-collapse: collapse; min-width: 1000px; }
   .admin-table th, .admin-table td{ padding: 14px 12px; border-bottom: 1px solid var(--border); text-align: left; font-size: 13px; vertical-align: middle; }
@@ -239,7 +261,6 @@
   .btn-upload-file{ background: var(--bg-soft); border: 1px solid var(--border); padding: 5px 8px; font-size: 11px; font-weight: 700; border-radius: 6px; cursor: pointer; transition:.2s; white-space:nowrap;}
   .btn-upload-file:hover{ background: var(--border); }
   
-  /* SOLUTION L'MOCHKIL DYAL 4 TSAWER MZE7MIN */
   .gallery-grid-row{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
   
   .btn-del-prod{ background: #fef2f2; color: var(--danger); border: 1px solid #fecaca; padding: 7px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; transition:.2s; }
@@ -253,74 +274,23 @@
   .modal-header-logo { text-align: center; margin-bottom: 12px; }
   
   .checkout-input-group { 
-    display: flex; 
-    align-items: center; 
-    border: 1px solid var(--border); 
-    border-radius: 12px; 
-    margin-bottom: 12px; 
-    background: #fff; 
-    overflow: hidden; 
-    transition: 0.2s; 
+    display: flex; align-items: center; border: 1px solid var(--border); border-radius: 12px; margin-bottom: 12px; background: #fff; overflow: hidden; transition: 0.2s; 
   }
-  .checkout-input-group.error { 
-    border: 2px solid var(--danger) !important; 
-    background: #fef2f2; 
-  }
+  .checkout-input-group.error { border: 2px solid var(--danger) !important; background: #fef2f2; }
   .checkout-icon-box { 
-    width: 48px; 
-    height: 48px; 
-    background: #f8fafc; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    color: #475569; 
-    font-size: 15px; 
-    border-right: 1px solid var(--border); 
+    width: 48px; height: 48px; background: #f8fafc; display: flex; align-items: center; justify-content: center; color: #475569; font-size: 15px; border-right: 1px solid var(--border); 
   }
-  .checkout-input-group.error .checkout-icon-box {
-    border-right-color: var(--danger);
-    background: #fee2e2;
-    color: var(--danger);
-  }
+  .checkout-input-group.error .checkout-icon-box { border-right-color: var(--danger); background: #fee2e2; color: var(--danger); }
   .checkout-input-group input { 
-    width: 100%; 
-    padding: 12px 14px; 
-    border: none; 
-    outline: none; 
-    font-family: var(--font); 
-    font-size: 14px; 
-    background: transparent; 
+    width: 100%; padding: 12px 14px; border: none; outline: none; font-family: var(--font); font-size: 14px; background: transparent; 
   }
   
   .btn-submit-order { 
-    width: 100%; 
-    background: var(--accent); 
-    color: #fff; 
-    padding: 16px; 
-    border-radius: 12px; 
-    font-weight: 700; 
-    margin-top: 8px; 
-    cursor: pointer; 
-    border: none; 
-    font-family: var(--font); 
-    font-size: 16px; 
-    transition: 0.2s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
+    width: 100%; background: var(--accent); color: #fff; padding: 16px; border-radius: 12px; font-weight: 700; margin-top: 8px; cursor: pointer; border: none; font-family: var(--font); font-size: 16px; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;
   }
   .btn-submit-order:hover { background: var(--accent-dark); }
 
-  .checkout-features { 
-    display: grid; 
-    grid-template-columns: repeat(4, 1fr); 
-    gap: 8px; 
-    margin-top: 20px; 
-    border-top: 1px solid var(--border); 
-    padding-top: 18px; 
-    text-align: center; 
-  }
+  .checkout-features { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 20px; border-top: 1px solid var(--border); padding-top: 18px; text-align: center; }
   .checkout-feature-item { display: flex; flex-direction: column; align-items: center; }
   .checkout-feature-item i { font-size: 22px; color: var(--accent); margin-bottom: 6px; }
   .checkout-feature-item span { font-size: 10px; color: #475569; font-weight: 600; line-height: 1.25; }
@@ -331,10 +301,18 @@
     .trust-grid{grid-template-columns:repeat(2,1fr);} 
     .admin-layout{grid-template-columns: 1fr;}
     .form-grid-2{grid-template-columns: 1fr;}
+    .top-marquee-bar { font-size: 9px; }
   }
 </style>
 </head>
 <body>
+
+<!-- BANDEAU DÉFILANT -->
+<div class="top-marquee-bar">
+  <div class="marquee-content" id="site_topBannerText">
+    🚚 LIVRAISON RAPIDE PARTOUT AU MAROC ✨ 🚚 RETOUR GRATUIT SOUS 7 JOURS ✨ ⭐ +10 000 CLIENTS SATISFAITS
+  </div>
+</div>
 
 <!-- HEADER -->
 <header class="site-header">
@@ -346,15 +324,15 @@
     </nav>
 
     <!-- LOGO CLICKABLE -->
-    <a href="#" class="logo" id="logoHome" onclick="goToHome(event)">
-      <span id="nav_brandName">YAM</span><span id="nav_brandSuffix" style="color:var(--text);">ZA</span>
+    <a href="#" class="logo" onclick="goToHome(event)">
+      <span id="nav_brandName">YAMZA</span>
     </a>
 
     <div class="nav-right">
-      <!-- MOTEUR DE RECHERCHE KHEDAM 100% -->
+      <!-- MOTEUR DE RECHERCHE -->
       <div class="search-wrapper">
         <input type="text" id="searchInput" class="search-input" placeholder="Chercher un produit..." onkeyup="filterProducts()">
-        <div class="icon-btn" style="cursor:pointer;" onclick="toggleSearch()"><i class="fas fa-search"></i></div>
+        <div class="icon-btn search-trigger" style="cursor:pointer;" onclick="toggleSearch()"><i class="fas fa-search"></i></div>
       </div>
       
       <div class="icon-btn" style="cursor:pointer;" onclick="openLoginPrompt()"><i class="far fa-user"></i></div>
@@ -394,7 +372,7 @@
   <section class="products-section container" id="productsGrid">
     <div class="section-header">
         <h2 id="site_productsHeading">Nos Produits</h2>
-        <a href="#" class="view-all" onclick="renderPage(1); document.getElementById('searchInput').value='';">Tout afficher →</a>
+        <a href="#" class="view-all" onclick="resetSearchAndShowAll()">Tout afficher →</a>
     </div>
     <div class="product-grid" id="homeGrid"></div>
     <div class="pagination" id="paginationContainer"></div>
@@ -450,11 +428,11 @@
     
     <!-- L'formulaire li kaykhrej -->
     <div class="login-card-anim" id="formAnim">
-      <h2 style="color:var(--accent);"><i class="fas fa-user-shield"></i> Espace Admin</h2>
-      <p>Connectez-vous pour gérer votre boutique</p>
+      <h2 style="color:var(--text);"><i class="fas fa-user-shield" style="color:var(--accent);"></i> Espace Admin</h2>
+      <p>Connectez-vous pour gérer votre boutique YAMZA</p>
       <form onsubmit="verifyAdminLogin(event)">
-        <input type="email" id="adminEmailInput" class="login-input" placeholder="Adresse Email (yahyabelkhoukh00...)" required>
-        <input type="password" id="adminPassInput" class="login-input" placeholder="Mot de passe (Moyah2010-)" required>
+        <input type="email" id="adminEmailInput" class="login-input" placeholder="Adresse Email" required>
+        <input type="password" id="adminPassInput" class="login-input" placeholder="Mot de passe" required>
         <button type="submit" class="login-btn">Connexion au Dashboard</button>
       </form>
     </div>
@@ -483,7 +461,7 @@
           <i class="fas fa-tags"></i> Tous les Produits <span class="count-badge" id="productsCount">0</span>
         </button>
         <button class="admin-nav-item" onclick="switchAdminTabPro('tab-pro-hero', this)">
-          <i class="fas fa-bullhorn"></i> Hero & Promo
+          <i class="fas fa-bullhorn"></i> Hero & Bandeau
         </button>
         <button class="admin-nav-item" onclick="switchAdminTabPro('tab-pro-branding', this)">
           <i class="fas fa-paint-brush"></i> Logo & Textes
@@ -539,7 +517,13 @@
 
         <!-- ONGLET 3: HERO & PROMO -->
         <div id="tab-pro-hero" class="admin-tab-pane">
-          <div class="pane-title">📢 En-tête d'Accueil (Hero Section & Offre Saisonnière)</div>
+          <div class="pane-title">📢 En-tête d'Accueil (Hero Section & Bandeau Défilant)</div>
+          
+          <div class="form-group" style="margin-bottom:18px;">
+            <label>Texte du Bandeau Défilant (Haut de page)</label>
+            <input type="text" id="set_topBannerText" value="🚚 LIVRAISON RAPIDE PARTOUT AU MAROC ✨ 🚚 RETOUR GRATUIT SOUS 7 JOURS ✨ ⭐ +10 000 CLIENTS SATISFAITS">
+          </div>
+
           <div class="form-grid-2">
             <div class="form-group">
               <label>Badge de Promo (Tag du haut)</label>
@@ -569,12 +553,8 @@
           <div class="pane-title">🎨 Identité de la Marque & Textes</div>
           <div class="form-grid-2">
             <div class="form-group">
-              <label>Nom de la Boutique (Première partie)</label>
-              <input type="text" id="set_brandName" value="YAM">
-            </div>
-            <div class="form-group">
-              <label>Suffixe de la Boutique (Deuxième partie)</label>
-              <input type="text" id="set_brandSuffix" value="ZA">
+              <label>Nom de la Boutique (Logo)</label>
+              <input type="text" id="set_brandName" value="YAMZA">
             </div>
             <div class="form-group">
               <label>Titre Section Produits</label>
@@ -643,7 +623,7 @@
   <div class="modal-box">
     <button class="close-modal" onclick="closeModal()">✕</button>
     <div class="modal-header-logo">
-      <h2 class="logo"><span id="modal_brand1">YAM</span><span id="modal_brand2" style="color:var(--text);">ZA</span></h2>
+      <h2 class="logo"><span id="modal_brand1">YAMZA</span></h2>
     </div>
     
     <div class="modal-order-summary" style="margin-bottom:18px; border-bottom:1px solid var(--border); padding-bottom:15px;">
@@ -713,13 +693,13 @@
 /* ================= PARAMÈTRES PAR DÉFAUT ================= */
 const DEFAULT_SETTINGS = {
   wa: "212600000000",
+  topBannerText: "🚚 LIVRAISON RAPIDE PARTOUT AU MAROC ✨ 🚚 RETOUR GRATUIT SOUS 7 JOURS ✨ ⭐ +10 000 CLIENTS SATISFAITS",
   heroTag: "🍂 Les Deals de l'Automne",
   heroTitle: "Confort Absolu, Jusqu'à -50%",
   heroDesc: "Rafraîchissez votre espace avec nos meilleurs articles — livraison rapide et paiement à la réception.",
   heroBgUrl: "https://picsum.photos/seed/yamza-hero2/1400/700",
   heroBtnText: "Profiter des offres →",
-  brandName: "YAM",
-  brandSuffix: "ZA",
+  brandName: "YAMZA",
   productsHeading: "Nos Produits",
   btnOrderText: "أطلب من هنا - Commander",
   btnOrderSub: "Paiement à la livraison",
@@ -749,10 +729,9 @@ let currentPage = 1;
 const itemsPerPage = 8;
 
 function initSite() {
-  document.getElementById('nav_brandName').innerText = SITE_SETTINGS.brandName || "YAM";
-  document.getElementById('nav_brandSuffix').innerText = SITE_SETTINGS.brandSuffix || "ZA";
-  document.getElementById('modal_brand1').innerText = SITE_SETTINGS.brandName || "YAM";
-  document.getElementById('modal_brand2').innerText = SITE_SETTINGS.brandSuffix || "ZA";
+  document.getElementById('site_topBannerText').innerText = SITE_SETTINGS.topBannerText || DEFAULT_SETTINGS.topBannerText;
+  document.getElementById('nav_brandName').innerText = SITE_SETTINGS.brandName || "YAMZA";
+  document.getElementById('modal_brand1').innerText = SITE_SETTINGS.brandName || "YAMZA";
 
   document.getElementById('site_heroTag').innerText = SITE_SETTINGS.heroTag || DEFAULT_SETTINGS.heroTag;
   document.getElementById('site_heroTitle').innerHTML = SITE_SETTINGS.heroTitle || DEFAULT_SETTINGS.heroTitle;
@@ -840,7 +819,7 @@ function renderPagination(productsList = ALL_PRODUCTS) {
   document.getElementById('paginationContainer').innerHTML = html;
 }
 
-/* LA RECHERCHE (Search Bar) */
+/* ================= RECHERCHE DYNAMIQUE ================= */
 function toggleSearch() {
   const input = document.getElementById('searchInput');
   if(input.classList.contains('active')) {
@@ -850,12 +829,22 @@ function toggleSearch() {
     input.focus();
   }
 }
+
 function filterProducts() {
   const query = document.getElementById('searchInput').value.toLowerCase();
   const filtered = ALL_PRODUCTS.filter(p => p.title.toLowerCase().includes(query));
   renderPage(1, filtered);
-  // Revenir aux produits si on est ailleurs
-  showPage('page-home');
+  
+  if(document.querySelector('.page.active').id !== 'page-home') {
+    showPage('page-home');
+  }
+  document.getElementById('productsGrid').scrollIntoView({behavior: 'smooth'});
+}
+
+function resetSearchAndShowAll() {
+  document.getElementById('searchInput').value = '';
+  document.getElementById('searchInput').classList.remove('active');
+  renderPage(1, ALL_PRODUCTS);
   document.getElementById('productsGrid').scrollIntoView({behavior: 'smooth'});
 }
 
@@ -868,7 +857,7 @@ function goToHome(e) {
   window.scrollTo({top: 0, behavior: 'smooth'});
 }
 
-/* GESTION LOGIN & ANIMATION */
+/* ================= LOGIN & ANIMATION ================= */
 window.addEventListener('load', () => { checkAdminHash(); });
 window.addEventListener('hashchange', () => { checkAdminHash(); });
 
@@ -886,7 +875,6 @@ function startLoginAnimation() {
   const loginScreen = document.getElementById('animatedLoginScreen');
   loginScreen.classList.add('active');
   
-  // Rejouer l'animation a chaque fois
   const bag = document.getElementById('bagAnim');
   const form = document.getElementById('formAnim');
   
@@ -930,17 +918,18 @@ function openContactInfo(e) {
   window.open(`https://wa.me/${SITE_SETTINGS.wa}`, '_blank');
 }
 
+/* ================= PANNEAU D'ADMINISTRATION PRO ================= */
 function openAdminPanel() {
   showPage('page-admin');
   
+  document.getElementById('set_topBannerText').value = SITE_SETTINGS.topBannerText || DEFAULT_SETTINGS.topBannerText;
   document.getElementById('set_heroTag').value = SITE_SETTINGS.heroTag || DEFAULT_SETTINGS.heroTag;
   document.getElementById('set_heroTitle').value = SITE_SETTINGS.heroTitle || DEFAULT_SETTINGS.heroTitle;
   document.getElementById('set_heroDesc').value = SITE_SETTINGS.heroDesc || DEFAULT_SETTINGS.heroDesc;
   document.getElementById('set_heroBgUrl').value = SITE_SETTINGS.heroBgUrl || DEFAULT_SETTINGS.heroBgUrl;
   document.getElementById('set_heroBtnText').value = SITE_SETTINGS.heroBtnText || DEFAULT_SETTINGS.heroBtnText;
 
-  document.getElementById('set_brandName').value = SITE_SETTINGS.brandName || "YAM";
-  document.getElementById('set_brandSuffix').value = SITE_SETTINGS.brandSuffix || "ZA";
+  document.getElementById('set_brandName').value = SITE_SETTINGS.brandName || "YAMZA";
   document.getElementById('set_productsHeading').value = SITE_SETTINGS.productsHeading || "Nos Produits";
   document.getElementById('set_btnOrderText').value = SITE_SETTINGS.btnOrderText || "أطلب من هنا - Commander";
   document.getElementById('set_btnOrderSub').value = SITE_SETTINGS.btnOrderSub || "Paiement à la livraison";
@@ -1087,13 +1076,13 @@ function handleImageUpload(event, index, type) {
 function saveAllAdminData() {
   SITE_SETTINGS = {
     wa: document.getElementById('set_wa').value.trim(),
+    topBannerText: document.getElementById('set_topBannerText').value.trim(),
     heroTag: document.getElementById('set_heroTag').value.trim(),
     heroTitle: document.getElementById('set_heroTitle').value.trim(),
     heroDesc: document.getElementById('set_heroDesc').value.trim(),
     heroBgUrl: document.getElementById('set_heroBgUrl').value.trim(),
     heroBtnText: document.getElementById('set_heroBtnText').value.trim(),
     brandName: document.getElementById('set_brandName').value.trim(),
-    brandSuffix: document.getElementById('set_brandSuffix').value.trim(),
     productsHeading: document.getElementById('set_productsHeading').value.trim(),
     btnOrderText: document.getElementById('set_btnOrderText').value.trim(),
     btnOrderSub: document.getElementById('set_btnOrderSub').value.trim(),
