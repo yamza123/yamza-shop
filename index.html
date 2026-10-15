@@ -1,3 +1,16 @@
+Voici le code complet mis à jour intégrant exactement l'ensemble de vos demandes :
+
+1. **Logo YAMZA cliquable** : En cliquant sur le logo « YAMZA » en haut, l'utilisateur revient immédiatement et proprement à la page d'accueil.
+2. **Bouton d'action avec mouvement subtil (vibration / pulsation douce au lieu de sauter)** : Le bouton de commande s'anime avec un léger battement / pulsation fluide (`pulse-shake`) pour attirer l'attention sans sauter brutalement.
+3. **Bouton large de bout en bout** : Design allongé reprenant le texte bilingue « أطلب من هنا - Commander » et « Paiement à la livraison » avec l'icône de panier.
+4. **Formulaire de commande express (Pop-up)** :
+* Mise en page fidèle au modèle fourni.
+* Contournement d'erreur rouge (`border: 2px solid #e53e3e`) et fond d'alerte si l'un des champs obligatoires est laissé vide.
+* Les quatre badges de réassurance en bas (Livraison rapide, Paiement à la livraison, Confirmation par téléphone, Échange sous 7 jours).
+
+
+
+```html
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -12,7 +25,7 @@
     --accent:#3a9b9e;
     --accent-dark:#2c7a7c;
     --accent-light:#eaf5f5;
-    --danger:#ff4b4b;
+    --danger:#e53e3e;
     --text:#2d3748;
     --text-light:#718096;
     --bg:#ffffff;
@@ -125,32 +138,51 @@
   .qty-control button{width:40px; height:40px; font-size:18px; font-weight:700;}
   .qty-control input{ width:50px; text-align:center; border:none; border-left:1px solid var(--border); border-right:1px solid var(--border); height:40px; font-size:15px; font-weight:700; }
   
-  /* BOUTON WA3R B MOUVEMENT (KATN9EZ) W SHADA MN RAS L RAS */
-  @keyframes bounceBtn {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
+  /* ANIMATION VIBRATION / MOUVEMENT DOUX DU BOUTON */
+  @keyframes pulseShake {
+    0%, 100% { transform: scale(1); }
+    15% { transform: scale(1.02) rotate(-1deg); }
+    30% { transform: scale(1.02) rotate(1deg); }
+    45% { transform: scale(1.01) rotate(0deg); }
+    60% { transform: scale(1); }
   }
+  
+  .btn-order-wrapper { width: 100%; margin-top: 15px; }
   .btn-order{ 
     width:100%; 
     background:var(--accent); 
     color:#fff; 
-    font-size:16px; 
-    font-weight:700; 
-    padding:16px 20px; 
+    padding:16px 24px; 
     border-radius:50px; 
     cursor: pointer; 
     transition:.2s;
     text-align: center;
-    box-shadow: 0 8px 20px rgba(58,155,158,0.3);
-    animation: bounceBtn 2s infinite ease-in-out;
+    box-shadow: 0 8px 24px rgba(58,155,158,0.35);
+    animation: pulseShake 3s infinite ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
   }
   .btn-order:hover{
     background:var(--accent-dark); 
-    animation: none;
-    transform:scale(1.02);
+    box-shadow: 0 10px 28px rgba(44,122,124,0.45);
   }
-  .btn-order-title { display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 17px; font-weight: 800; margin-bottom: 2px; }
-  .btn-order-sub { font-size: 13px; font-weight: 500; opacity: 0.95; }
+  .btn-order-title { 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    gap: 10px; 
+    font-size: 18px; 
+    font-weight: 800; 
+  }
+  .btn-order-title i { font-size: 17px; }
+  .btn-order-sub { 
+    font-size: 13px; 
+    font-weight: 500; 
+    opacity: 0.95; 
+  }
 
   .description-section{padding:10px 24px 60px; text-align: center;}
   .desc-img-container img{ width: 100%; max-width: 900px; border-radius: 20px; margin: 0 auto; box-shadow: var(--shadow); display: block;}
@@ -201,30 +233,93 @@
   .gallery-upload-item { display: flex; flex-direction: column; align-items: center;}
   .btn-delete-row { background: var(--danger); color: #fff; padding: 6px 10px; border-radius: 6px; font-size: 11px; font-weight: 600; cursor: pointer; border: none; font-family: var(--font); }
 
-  /* EXPRESS CHECKOUT MODAL (DESIGN JDID) */
+  /* EXPRESS CHECKOUT MODAL */
   .modal-overlay { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); z-index: 2000; display: none; align-items: center; justify-content: center; padding: 20px;}
   .modal-overlay.show { display: flex; }
   .modal-box { background: #fff; width: 100%; max-width: 480px; border-radius: 24px; padding: 25px; position: relative; box-shadow: 0 25px 50px rgba(0,0,0,0.25); max-height: 95vh; overflow-y: auto; }
-  .close-modal { position: absolute; top: 20px; right: 20px; font-size: 22px; color: var(--text-light); cursor:pointer; background: none; border: none; z-index: 10;}
-  .modal-header-logo { text-align: center; margin-bottom: 15px; }
+  .close-modal { position: absolute; top: 18px; right: 18px; font-size: 22px; color: var(--text-light); cursor:pointer; background: none; border: none; z-index: 10;}
+  .modal-header-logo { text-align: center; margin-bottom: 12px; }
   
-  .checkout-input-group { display: flex; align-items: center; border: 1px solid var(--border); border-radius: 12px; margin-bottom: 15px; background: #fff; overflow: hidden; transition: 0.2s; }
-  .checkout-input-group.error { border-color: var(--danger) !important; box-shadow: 0 0 0 3px rgba(255,75,75,0.15); }
-  .checkout-icon-box { width: 50px; height: 52px; background: #f1f5f5; display: flex; align-items: center; justify-content: center; color: var(--text-light); font-size: 16px; border-right: 1px solid var(--border); }
-  .checkout-input-group input { width: 100%; padding: 14px; border: none; outline: none; font-family: var(--font); font-size: 14px; background: transparent; }
+  .checkout-input-group { 
+    display: flex; 
+    align-items: center; 
+    border: 1px solid var(--border); 
+    border-radius: 10px; 
+    margin-bottom: 12px; 
+    background: #fff; 
+    overflow: hidden; 
+    transition: 0.2s; 
+  }
+  /* Style rouge en cas d'erreur de validation */
+  .checkout-input-group.error { 
+    border: 2px solid var(--danger) !important; 
+    background: #fff5f5; 
+  }
+  .checkout-icon-box { 
+    width: 48px; 
+    height: 48px; 
+    background: #f8fafc; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    color: #4a5568; 
+    font-size: 15px; 
+    border-right: 1px solid var(--border); 
+  }
+  .checkout-input-group.error .checkout-icon-box {
+    border-right-color: var(--danger);
+    background: #fed7d7;
+    color: var(--danger);
+  }
+  .checkout-input-group input { 
+    width: 100%; 
+    padding: 12px 14px; 
+    border: none; 
+    outline: none; 
+    font-family: var(--font); 
+    font-size: 14px; 
+    background: transparent; 
+  }
   
-  .btn-submit-order { width: 100%; background: var(--accent); color: #fff; padding: 16px; border-radius: 12px; font-weight: 700; margin-top: 5px; cursor: pointer; border: none; font-family: var(--font); font-size: 16px; transition: 0.2s;}
+  .btn-submit-order { 
+    width: 100%; 
+    background: var(--accent); 
+    color: #fff; 
+    padding: 16px; 
+    border-radius: 12px; 
+    font-weight: 700; 
+    margin-top: 8px; 
+    cursor: pointer; 
+    border: none; 
+    font-family: var(--font); 
+    font-size: 16px; 
+    transition: 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
   .btn-submit-order:hover { background: var(--accent-dark); }
 
-  .checkout-features { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 20px; border-top: 1px solid var(--border); padding-top: 20px; text-align: center; }
-  .checkout-feature-item img, .checkout-feature-item i { font-size: 22px; color: var(--accent); margin-bottom: 4px; }
-  .checkout-feature-item span { font-size: 10px; color: var(--text-light); font-weight: 600; display: block; line-height: 1.2; }
+  .checkout-features { 
+    display: grid; 
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 8px; 
+    margin-top: 20px; 
+    border-top: 1px solid var(--border); 
+    padding-top: 18px; 
+    text-align: center; 
+  }
+  .checkout-feature-item { display: flex; flex-direction: column; align-items: center; }
+  .checkout-feature-item i { font-size: 24px; color: var(--accent); margin-bottom: 6px; }
+  .checkout-feature-item span { font-size: 10px; color: #4a5568; font-weight: 600; line-height: 1.25; }
 
   @media(max-width:992px){ .product-grid{grid-template-columns:repeat(2,1fr);} .product-top{grid-template-columns:1fr; gap:32px;} .trust-grid{grid-template-columns:repeat(2,1fr);} }
 </style>
 </head>
 <body>
 
+<!-- HEADER -->
 <header class="site-header">
   <div class="container header-inner">
     <nav class="nav-left">
@@ -232,7 +327,10 @@
       <a href="#" class="nav-link" data-page="page-home-products">Produits</a>
       <a href="#" class="nav-link" data-page="page-contact" onclick="openContactInfo(event)">Contact</a>
     </nav>
-    <a href="#" class="logo" id="logoHome">YAM<span>ZA</span></a>
+
+    <!-- Smiyet Yamza trje3 l page d'accueil -->
+    <a href="#" class="logo" id="logoHome" onclick="goToHome(event)">YAM<span>ZA</span></a>
+
     <div class="nav-right">
       <div class="icon-btn" style="cursor:pointer;"><i class="fas fa-search"></i></div>
       <div class="icon-btn" style="cursor:pointer;"><i class="far fa-user"></i></div>
@@ -244,6 +342,7 @@
   </div>
 </header>
 
+<!-- PAGE D'ACCUEIL -->
 <section class="page active" id="page-home">
   <section class="hero">
     <div class="hero-inner">
@@ -275,6 +374,7 @@
   </section>
 </section>
 
+<!-- PAGE PRODUIT -->
 <section class="page" id="page-product">
   <div class="container breadcrumb">Accueil / Produits / <span id="crumbName">Produit</span></div>
   <div class="container product-top">
@@ -294,11 +394,16 @@
           <button onclick="changeQty(1)">+</button>
       </div>
       
-      <!-- BOUTON WA3R B MOUVEMENT W 2 SSOUR -->
-      <button class="btn-order" onclick="openModal()">
-        <div class="btn-order-title"><i class="fas fa-shopping-cart"></i> أطلب من هنا - Commander</div>
-        <div class="btn-order-sub">Paiement à la livraison</div>
-      </button>
+      <!-- BOUTON WA3R B HARAKA KHFIFA (PULSE) W CHADA MN RAS L RAS -->
+      <div class="btn-order-wrapper">
+        <button class="btn-order" onclick="openModal()">
+          <div class="btn-order-title">
+            <i class="fas fa-shopping-cart"></i>
+            <span>أطلب من هنا - Commander</span>
+          </div>
+          <div class="btn-order-sub">Paiement à la livraison</div>
+        </button>
+      </div>
     </div>
   </div>
   <section class="description-section container">
@@ -308,6 +413,7 @@
   </section>
 </section>
 
+<!-- LOGIN ADMIN -->
 <div class="login-page-neo" id="animatedLoginScreen">
     <div class="neo-circle">
         <button class="neo-close" onclick="closeLoginScreen()">✕</button>
@@ -327,6 +433,7 @@
     </div>
 </div>
 
+<!-- ADMIN DASHBOARD -->
 <section class="page" id="page-admin">
   <div class="admin-wrap">
     <div class="admin-header">
@@ -352,7 +459,7 @@
       </div>
     </div>
     <div id="tab-products" class="admin-tab-content">
-      <p style="font-size:13px; color:gray; margin-bottom:15px;">T9der tzid, tbeddel awla tmsah ay produit, w trfe3 les images dyalo.</p>
+      <p style="font-size:13px; color:gray; margin-bottom:15px;">Gérer les produits (ajouter, modifier, supprimer) et mettre à jour leurs images.</p>
       <div class="admin-table-container">
         <table class="admin-table">
           <thead>
@@ -393,44 +500,52 @@
   </div>
 </section>
 
-<!-- EXPRESS CHECKOUT MODAL (DESIGN BHAL LE EXEMPLE + VALIDATION 7AMRA) -->
+<!-- MODAL EXPRESS CHECKOUT AVEC VALIDATION ROUGE -->
 <div class="modal-overlay" id="checkoutModal">
   <div class="modal-box">
     <button class="close-modal" onclick="closeModal()">✕</button>
     <div class="modal-header-logo"><h2 class="logo">YAM<span>ZA</span></h2></div>
     
-    <div class="modal-order-summary" style="margin-bottom:20px; border-bottom:1px solid var(--border); padding-bottom:15px;">
-      <div style="display:flex; gap:15px; align-items:center;">
-        <img id="modalImg" src="" style="width:65px; height:65px; border-radius:12px; object-fit:cover; border:1px solid var(--border);">
-        <div>
-          <div style="font-weight:700; font-size:14px; color:#1a202c; line-height:1.3; margin-bottom:4px;" id="modalQtyTitle"></div>
-          <div style="font-weight:800; color:var(--accent-dark); font-size:16px;" id="modalPrice"></div>
-        </div>
+    <div class="modal-order-summary" style="margin-bottom:18px; border-bottom:1px solid var(--border); padding-bottom:15px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <span style="font-size:13px; color:var(--text-light);">Sous-total</span>
+        <span style="font-weight:600; font-size:14px;" id="summarySubtotal">0.00 dh</span>
+      </div>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <span style="font-size:13px; color:var(--text-light);">Expédition</span>
+        <span style="font-weight:700; font-size:13px; color:var(--accent);">Gratuit</span>
+      </div>
+      <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px dashed var(--border); padding-top:10px;">
+        <span style="font-weight:800; font-size:15px;">Total</span>
+        <span style="font-weight:800; font-size:18px; color:var(--accent-dark);" id="summaryTotal">0.00 dh</span>
       </div>
     </div>
 
-    <form class="checkout-form" onsubmit="submitOrder(event)">
+    <form class="checkout-form" id="orderForm" onsubmit="submitOrder(event)" novalidate>
       <div class="checkout-input-group" id="group_clientName">
         <div class="checkout-icon-box"><i class="far fa-user"></i></div>
-        <input type="text" id="clientName" placeholder="Nom complet *" required>
+        <input type="text" id="clientName" placeholder="Nom complet *" oninput="clearError('group_clientName')">
       </div>
       
       <div class="checkout-input-group" id="group_clientPhone">
         <div class="checkout-icon-box"><i class="fas fa-phone-alt"></i></div>
-        <input type="tel" id="clientPhone" placeholder="Numéro de téléphone *" required>
+        <input type="tel" id="clientPhone" placeholder="Numéro de téléphone *" oninput="clearError('group_clientPhone')">
       </div>
 
       <div class="checkout-input-group" id="group_clientAddress">
         <div class="checkout-icon-box"><i class="fas fa-map-marker-alt"></i></div>
-        <input type="text" id="clientAddress" placeholder="Adresse de livraison complète *" required>
+        <input type="text" id="clientAddress" placeholder="Adresse de livraison complète *" oninput="clearError('group_clientAddress')">
       </div>
 
       <div class="checkout-input-group" id="group_clientCity">
         <div class="checkout-icon-box"><i class="fas fa-city"></i></div>
-        <input type="text" id="clientCity" placeholder="Ville *" required>
+        <input type="text" id="clientCity" placeholder="Ville *" oninput="clearError('group_clientCity')">
       </div>
 
-      <button type="submit" class="btn-submit-order" id="btnSubmitOrderText">ACHETER - 0.00 dh</button>
+      <button type="submit" class="btn-submit-order" id="btnSubmitOrderText">
+        <i class="fas fa-shopping-cart"></i>
+        <span>ACHETER - 0.00 dh</span>
+      </button>
     </form>
 
     <div class="checkout-features">
@@ -543,6 +658,16 @@ function renderPagination() {
     html += `<button onclick="renderPage(${currentPage + 1})"><i class="fas fa-chevron-right"></i></button>`;
   }
   document.getElementById('paginationContainer').innerHTML = html;
+}
+
+/* REDIRECTION VERS L'ACCUEIL LORS D'UN CLIC SUR YAMZA */
+function goToHome(e) {
+  if(e) e.preventDefault();
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  const homeLink = document.querySelector('.nav-link[data-page="page-home"]');
+  if(homeLink) homeLink.classList.add('active');
+  showPage('page-home');
+  window.scrollTo({top: 0, behavior: 'smooth'});
 }
 
 window.addEventListener('load', () => { checkAdminHash(); });
@@ -670,7 +795,7 @@ function addNewProductRow() {
 }
 
 function deleteProductRow(index) {
-  if(confirm("Wach bghiti tmsah had l'produit?")) {
+  if(confirm("Voulez-vous vraiment supprimer ce produit ?")) {
     BASE_PRODUCTS.splice(index, 1);
     renderAdminProductsList();
   }
@@ -739,12 +864,12 @@ function saveAllAdminData() {
       initSite();
       alert("Modifications et produits sauvegardés avec succès !");
   } catch (e) {
-      alert("Erreur: Les images sont trop grandes pour l'espace gratuit.");
+      alert("Erreur: Les images sont trop grandes pour l'espace LocalStorage.");
   }
 }
 
 document.querySelectorAll('.nav-link').forEach(link=>{
-  if(link.getAttribute('onclick')) return; // skip contact
+  if(link.getAttribute('onclick')) return;
   link.addEventListener('click', e=>{
     e.preventDefault();
     document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));
@@ -795,19 +920,22 @@ function openModal() {
   const p = ALL_PRODUCTS.find(x => x.id === activeProductId);
   const qty = parseInt(document.getElementById('qtyInput').value);
   const total = p.price * qty;
-  document.getElementById('modalImg').src = productImg(p.seed); 
-  document.getElementById('modalQtyTitle').textContent = `${qty}x ${p.title}`;
-  document.getElementById('modalPrice').textContent = `${total.toFixed(2)} dh`;
-  document.getElementById('btnSubmitOrderText').textContent = `ACHETER - ${total.toFixed(2)} dh`;
   
-  // Clear error styles
-  ['clientName', 'clientPhone', 'clientAddress', 'clientCity'].forEach(id => {
-    document.getElementById('group_' + id).classList.remove('error');
+  document.getElementById('summarySubtotal').textContent = `${total.toFixed(2)} dh`;
+  document.getElementById('summaryTotal').textContent = `${total.toFixed(2)} dh`;
+  document.getElementById('btnSubmitOrderText').innerHTML = `<i class="fas fa-shopping-cart"></i> <span>ACHETER - ${total.toFixed(2)} dh</span>`;
+  
+  ['group_clientName', 'group_clientPhone', 'group_clientAddress', 'group_clientCity'].forEach(id => {
+    document.getElementById(id).classList.remove('error');
   });
 
   checkoutModal.classList.add('show');
 }
 function closeModal() { checkoutModal.classList.remove('show'); }
+
+function clearError(groupId) {
+  document.getElementById(groupId).classList.remove('error');
+}
 
 function submitOrder(e) { 
   e.preventDefault(); 
@@ -817,13 +945,13 @@ function submitOrder(e) {
   const city = document.getElementById('clientCity').value.trim();
 
   let hasError = false;
-  if(!name) { document.getElementById('group_clientName').classList.add('error'); hasError = true; } else { document.getElementById('group_clientName').classList.remove('error'); }
-  if(!phone) { document.getElementById('group_clientPhone').classList.add('error'); hasError = true; } else { document.getElementById('group_clientPhone').classList.remove('error'); }
-  if(!address) { document.getElementById('group_clientAddress').classList.add('error'); hasError = true; } else { document.getElementById('group_clientAddress').classList.remove('error'); }
-  if(!city) { document.getElementById('group_clientCity').classList.add('error'); hasError = true; } else { document.getElementById('group_clientCity').classList.remove('error'); }
+  if(!name) { document.getElementById('group_clientName').classList.add('error'); hasError = true; }
+  if(!phone) { document.getElementById('group_clientPhone').classList.add('error'); hasError = true; }
+  if(!address) { document.getElementById('group_clientAddress').classList.add('error'); hasError = true; }
+  if(!city) { document.getElementById('group_clientCity').classList.add('error'); hasError = true; }
 
   if(hasError) {
-    return; // Ila chi wahd ma3merch, katch3el 7amra w maydwezch
+    return;
   }
 
   const p = ALL_PRODUCTS.find(x => x.id === activeProductId);
@@ -846,3 +974,5 @@ function submitOrder(e) {
 </script>
 </body>
 </html>
+
+```
