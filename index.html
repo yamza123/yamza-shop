@@ -1,22 +1,9 @@
-Voici le code complet mis à jour intégrant exactement l'ensemble de vos demandes :
-
-1. **Logo YAMZA cliquable** : En cliquant sur le logo « YAMZA » en haut, l'utilisateur revient immédiatement et proprement à la page d'accueil.
-2. **Bouton d'action avec mouvement subtil (vibration / pulsation douce au lieu de sauter)** : Le bouton de commande s'anime avec un léger battement / pulsation fluide (`pulse-shake`) pour attirer l'attention sans sauter brutalement.
-3. **Bouton large de bout en bout** : Design allongé reprenant le texte bilingue « أطلب من هنا - Commander » et « Paiement à la livraison » avec l'icône de panier.
-4. **Formulaire de commande express (Pop-up)** :
-* Mise en page fidèle au modèle fourni.
-* Contournement d'erreur rouge (`border: 2px solid #e53e3e`) et fond d'alerte si l'un des champs obligatoires est laissé vide.
-* Les quatre badges de réassurance en bas (Livraison rapide, Paiement à la livraison, Confirmation par téléphone, Échange sous 7 jours).
-
-
-
-```html
 <!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>YAMZA — Achetez en toute confiance</title>
+<title>YAMZA — Boutique Officielle</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -26,6 +13,7 @@ Voici le code complet mis à jour intégrant exactement l'ensemble de vos demand
     --accent-dark:#2c7a7c;
     --accent-light:#eaf5f5;
     --danger:#e53e3e;
+    --success:#38a169;
     --text:#2d3748;
     --text-light:#718096;
     --bg:#ffffff;
@@ -34,9 +22,6 @@ Voici le code complet mis à jour intégrant exactement l'ensemble de vos demand
     --radius:16px;
     --shadow:0 4px 18px rgba(15,23,42,.06);
     --font:'Poppins', sans-serif;
-    --neo-bg: #e0e5ec;
-    --neo-shadow-1: 9px 9px 16px rgb(163,177,198,0.6), -9px -9px 16px rgba(255,255,255, 0.5);
-    --neo-shadow-inset: inset 6px 6px 10px 0 rgba(163, 177, 198, 0.5), inset -6px -6px 10px 0 rgba(255, 255, 255, 0.5);
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
@@ -70,16 +55,16 @@ Voici le code complet mis à jour intégrant exactement l'ensemble de vos demand
   .cart-count { position: absolute; top: -8px; right: -8px; background: var(--accent); color: #fff; font-size: 10px; font-weight: 700; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center;}
 
   /* PAGES */
-  .page{display:none; animation:fade .4s ease;}
+  .page{display:none; animation:fade .35s ease;}
   .page.active{display:block;}
-  @keyframes fade{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
+  @keyframes fade{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
 
   /* HERO */
   .hero{margin:24px auto 0; max-width:1240px; padding:0 24px;}
   .hero-inner{ border-radius:24px; overflow:hidden; position:relative; min-height:440px; display:flex; align-items:center; background:#e2e8f0; padding:60px; }
-  .hero-inner::before{ content:''; position:absolute; inset:0; background:url('https://picsum.photos/seed/yamza-hero2/1400/700') center/cover; opacity:0.6; }
-  .hero-content{position:relative; z-index:2; max-width:560px; color:#1e293b;}
-  .hero-tag{ display:inline-block; background:var(--accent); color:#fff; padding:6px 16px; border-radius:30px; font-size:12px; font-weight:600; margin-bottom:18px; }
+  .hero-bg{ position:absolute; inset:0; background-position:center; background-size:cover; opacity:0.65; z-index:1; }
+  .hero-content{position:relative; z-index:2; max-width:580px; color:#1e293b;}
+  .hero-tag{ display:inline-block; background:var(--accent); color:#fff; padding:6px 18px; border-radius:30px; font-size:13px; font-weight:700; margin-bottom:18px; box-shadow: 0 4px 12px rgba(58,155,158,0.3); }
   .hero-content h1{font-size:42px; font-weight:800; line-height:1.15; margin-bottom:16px; color: #1a202c;}
   .hero-content p{font-size:15px; font-weight:500; margin-bottom:28px; line-height:1.6; color: #2d3748;}
   .btn-primary{background:var(--accent); color:#fff; padding:14px 28px; border-radius:12px; font-weight:600; font-size:15px; display:inline-block; transition:.2s;}
@@ -89,37 +74,37 @@ Voici le code complet mis à jour intégrant exactement l'ensemble de vos demand
   .trust-bar{background:#fff; margin:20px auto 40px; max-width:1240px; padding:20px 24px;}
   .trust-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:15px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 30px 0;}
   .trust-item{display:flex; align-items:center; gap:12px;}
-  .trust-icon{ width:40px; height:40px; min-width:40px; color:var(--accent); display:flex; align-items:center; justify-content:center; font-size: 20px;}
-  .trust-item h4{font-size:13px; font-weight:700; margin-bottom:2px; color: #1a202c;}
+  .trust-icon{ width:42px; height:42px; min-width:42px; color:var(--accent); display:flex; align-items:center; justify-content:center; font-size: 22px; background:var(--accent-light); border-radius:50%;}
+  .trust-item h4{font-size:14px; font-weight:700; margin-bottom:2px; color: #1a202c;}
   .trust-item p{font-size:12px; color:var(--text-light);}
 
   /* PRODUCTS GRID */
   .products-section{padding:20px 24px 80px;}
   .section-header{ display:flex; align-items:center; justify-content:space-between; margin-bottom:32px; }
-  .section-header h2{font-size:24px; font-weight:800; color: #1a202c;}
+  .section-header h2{font-size:26px; font-weight:800; color: #1a202c;}
   .view-all{ font-size:14px; font-weight:600; color:var(--accent-dark); transition:.2s; }
   
   .product-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:24px;}
   .product-card{ background:transparent; position:relative; cursor:pointer; }
   .product-card .img-wrap{aspect-ratio:1/1; overflow:hidden; border-radius:16px; margin-bottom: 12px; background:#f1f5f5;}
-  .product-card img{width:100%; height:100%; object-fit:cover; transition:.4s;}
+  .product-card img{width:100%; height:100%; object-fit:cover; transition:.35s;}
   .product-card:hover img{transform:scale(1.05);}
   .badge-discount{ position:absolute; top:12px; left:12px; z-index:2; background:var(--danger); color:#fff; font-size:12px; font-weight:700; padding:6px 12px; border-radius:30px; }
   
-  .product-title{font-size:14px; font-weight:500; color:#4a5568; line-height:1.4; margin-bottom:8px; height: 40px; overflow: hidden;}
+  .product-title{font-size:14px; font-weight:600; color:#2d3748; line-height:1.4; margin-bottom:8px; height: 40px; overflow: hidden;}
   .price-group{display:flex; align-items:center; gap:10px;}
-  .old-price{color:#a0aec0; text-decoration:line-through; font-size:12px;}
-  .new-price{color:#38b2ac; font-weight:700; font-size:18px;}
+  .old-price{color:#a0aec0; text-decoration:line-through; font-size:13px;}
+  .new-price{color:var(--accent); font-weight:700; font-size:19px;}
 
   /* PAGINATION */
-  .pagination { display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 50px; }
-  .pagination button { padding: 8px 14px; font-size: 14px; color: #4a5568; cursor: pointer; font-weight: 500; background: var(--bg-soft); border: 1px solid var(--border); border-radius: 8px; transition: .2s;}
-  .pagination button.active { background: var(--accent); color: #fff; border-color: var(--accent); font-weight: 700;}
-  .pagination button:hover { background: var(--border); }
+  .pagination { display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 50px; }
+  .pagination button { padding: 9px 15px; font-size: 14px; color: #4a5568; cursor: pointer; font-weight: 600; background: #fff; border: 1px solid var(--border); border-radius: 10px; transition: .2s;}
+  .pagination button.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .pagination button:hover:not(.active) { background: var(--bg-soft); }
 
   /* PRODUCT PAGE */
   .breadcrumb{padding:28px 24px 0; font-size:13px; color:var(--text-light);}
-  .breadcrumb span{color:var(--accent-dark); font-weight: 500;}
+  .breadcrumb span{color:var(--accent-dark); font-weight: 600;}
   
   .product-top{display:grid; grid-template-columns:1fr 1fr; gap:50px; padding:28px 24px 40px;}
   .gallery-main{ border-radius:16px; overflow:hidden; background:#f1f5f5; aspect-ratio:1/1; margin-bottom:15px; border: 1px solid var(--border); }
@@ -132,22 +117,22 @@ Voici le code complet mis à jour intégrant exactement l'ensemble de vos demand
   .product-info h1{font-size:28px; font-weight:800; margin-bottom:15px; color: #1a202c;}
   .price-row{display:flex; align-items:center; gap:14px; margin-bottom:30px;}
   .price-row .old-price{font-size:16px;}
-  .price-row .new-price{font-size:32px; color:#38b2ac;}
+  .price-row .new-price{font-size:32px; color:var(--accent);}
   
-  .qty-control{ display:flex; align-items:center; border:1px solid var(--border); border-radius:8px; overflow:hidden; width: max-content; margin-bottom: 30px;}
+  .qty-control{ display:flex; align-items:center; border:1px solid var(--border); border-radius:8px; overflow:hidden; width: max-content; margin-bottom: 25px;}
   .qty-control button{width:40px; height:40px; font-size:18px; font-weight:700;}
   .qty-control input{ width:50px; text-align:center; border:none; border-left:1px solid var(--border); border-right:1px solid var(--border); height:40px; font-size:15px; font-weight:700; }
   
-  /* ANIMATION VIBRATION / MOUVEMENT DOUX DU BOUTON */
+  /* ANIMATION PULSE-SHAKE */
   @keyframes pulseShake {
     0%, 100% { transform: scale(1); }
-    15% { transform: scale(1.02) rotate(-1deg); }
-    30% { transform: scale(1.02) rotate(1deg); }
+    15% { transform: scale(1.02) rotate(-0.5deg); }
+    30% { transform: scale(1.02) rotate(0.5deg); }
     45% { transform: scale(1.01) rotate(0deg); }
     60% { transform: scale(1); }
   }
   
-  .btn-order-wrapper { width: 100%; margin-top: 15px; }
+  .btn-order-wrapper { width: 100%; margin-top: 10px; }
   .btn-order{ 
     width:100%; 
     background:var(--accent); 
@@ -177,7 +162,6 @@ Voici le code complet mis à jour intégrant exactement l'ensemble de vos demand
     font-size: 18px; 
     font-weight: 800; 
   }
-  .btn-order-title i { font-size: 17px; }
   .btn-order-sub { 
     font-size: 13px; 
     font-weight: 500; 
@@ -187,56 +171,63 @@ Voici le code complet mis à jour intégrant exactement l'ensemble de vos demand
   .description-section{padding:10px 24px 60px; text-align: center;}
   .desc-img-container img{ width: 100%; max-width: 900px; border-radius: 20px; margin: 0 auto; box-shadow: var(--shadow); display: block;}
 
-  /* LOGIN NEUMORPHIC */
-  .login-page-neo { position: fixed; inset: 0; background: var(--neo-bg); z-index: 99999; display: none; align-items: center; justify-content: center; }
+  /* LOGIN POPUP */
+  .login-page-neo { position: fixed; inset: 0; background: rgba(15,23,42,0.7); backdrop-filter: blur(5px); z-index: 99999; display: none; align-items: center; justify-content: center; }
   .login-page-neo.active { display: flex; }
-  .neo-circle { width: 450px; height: 450px; border-radius: 50%; background: var(--neo-bg); box-shadow: var(--neo-shadow-1); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; position: relative; }
-  .neo-close { position: absolute; top: 30px; right: 30px; font-size: 20px; color: #a0a5a8; cursor: pointer; background: none; border: none; padding: 10px; }
-  .neo-title { font-size: 36px; font-weight: 800; color: #4a5568; margin-bottom: 5px; }
-  .neo-subtitle { font-size: 14px; color: #a0aec0; margin-bottom: 30px; font-weight: 500; }
-  .neo-form { width: 100%; max-width: 300px; }
-  .neo-input-group { width: 100%; margin-bottom: 20px; position: relative; border-radius: 12px; background: var(--neo-bg); box-shadow: var(--neo-shadow-inset); display: flex; align-items: center; padding: 0 15px; }
-  .neo-input-group i { color: #a0aec0; font-size: 16px; margin-right: 10px;}
-  .neo-input { width: 100%; padding: 16px 0; border: none; outline: none; background: transparent; font-size: 15px; color: #4a5568; font-family: var(--font); font-weight: 500; }
-  .neo-btn { width: 100%; padding: 16px; border: none; border-radius: 12px; background: var(--neo-bg); color: #718096; font-size: 16px; font-weight: 700; letter-spacing: 1px; box-shadow: var(--neo-shadow-1); cursor: pointer; transition: 0.3s; }
-  .neo-btn:hover { color: #4a5568; }
+  .login-card { width: 100%; max-width: 420px; background: #fff; border-radius: 24px; padding: 36px; box-shadow: 0 20px 50px rgba(0,0,0,0.25); position: relative; text-align: center; }
+  .login-card h2 { font-size: 24px; font-weight: 800; color: #1a202c; margin-bottom: 6px; }
+  .login-card p { font-size: 13px; color: var(--text-light); margin-bottom: 24px; }
+  .login-input { width: 100%; padding: 14px 16px; border: 1px solid var(--border); border-radius: 12px; margin-bottom: 14px; font-family: var(--font); font-size: 14px; outline: none; }
+  .login-input:focus { border-color: var(--accent); }
+  .login-btn { width: 100%; padding: 14px; background: var(--accent); color: #fff; border-radius: 12px; font-weight: 700; font-size: 15px; cursor: pointer; transition: .2s; }
+  .login-btn:hover { background: var(--accent-dark); }
+  .login-close { position: absolute; top: 18px; right: 20px; font-size: 20px; color: var(--text-light); cursor: pointer; }
 
-  /* ADMIN */
-  .admin-wrap{ max-width:1300px; margin:0 auto; padding:40px 24px; }
-  .admin-header{ display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; background: #fff; padding: 20px; border-radius: 16px; box-shadow: var(--shadow); border: 1px solid var(--border);}
-  .admin-actions { display: flex; gap: 10px; align-items: center; }
-  .btn-save-admin{ background:var(--accent); color:#fff; padding:12px 24px; border-radius:8px; font-weight:600; cursor:pointer; border: none; font-family: var(--font);}
-  .btn-add-product{ background: #2b6cb0; color:#fff; padding:12px 20px; border-radius:8px; font-weight:600; cursor:pointer; border: none; font-family: var(--font);}
+  /* ================= ADMIN PRO ================= */
+  .admin-wrap{ max-width:1380px; margin:0 auto; padding:30px 24px; }
+  .admin-top-bar{ display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; background: #fff; padding: 20px 28px; border-radius: 18px; box-shadow: var(--shadow); border: 1px solid var(--border); }
+  .admin-top-bar h2 { font-size: 22px; font-weight: 800; display:flex; align-items:center; gap:10px; color:#1a202c; }
+  .admin-btn-save{ background:var(--accent); color:#fff; padding:12px 26px; border-radius:10px; font-weight:700; cursor:pointer; display:flex; align-items:center; gap:8px; font-size:14px; transition:.2s; }
+  .admin-btn-save:hover{ background:var(--accent-dark); }
+  .admin-btn-add{ background:#2b6cb0; color:#fff; padding:12px 20px; border-radius:10px; font-weight:700; cursor:pointer; display:flex; align-items:center; gap:8px; font-size:14px; margin-right:10px; }
   
-  .admin-tabs { display: flex; gap: 15px; margin-bottom: 30px; border-bottom: 2px solid var(--border); padding-bottom: 15px;}
-  .admin-tab { padding: 10px 20px; font-size: 15px; font-weight: 600; color: var(--text-light); border-radius: 8px; transition: .2s; }
-  .admin-tab:hover { background: var(--bg-soft); }
-  .admin-tab.active { background: var(--accent); color: #fff; box-shadow: 0 4px 10px rgba(58,155,158,.3); }
-  .admin-tab-content { display: none; background: #fff; border-radius: 16px; padding: 25px; box-shadow: var(--shadow); border: 1px solid var(--border); }
-  .admin-tab-content.active { display: block; animation: fade .3s; }
+  .admin-layout{ display: grid; grid-template-columns: 240px 1fr; gap: 24px; }
+  .admin-sidebar{ background: #fff; border-radius: 18px; padding: 18px; border: 1px solid var(--border); box-shadow: var(--shadow); height: fit-content; display:flex; flex-direction:column; gap:8px; }
+  .admin-nav-item{ display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 12px; font-size: 14px; font-weight: 600; color: var(--text-light); cursor: pointer; transition: .2s; text-align: left; }
+  .admin-nav-item:hover{ background: var(--bg-soft); color: var(--text); }
+  .admin-nav-item.active{ background: var(--accent); color: #fff; }
+  .admin-nav-item .count-badge { margin-left: auto; background: rgba(0,0,0,0.12); padding: 2px 8px; border-radius: 20px; font-size: 12px; }
+
+  .admin-panel-box{ background: #fff; border-radius: 18px; padding: 28px; border: 1px solid var(--border); box-shadow: var(--shadow); }
+  .admin-tab-pane{ display: none; }
+  .admin-tab-pane.active{ display: block; animation: fade .3s; }
+
+  .pane-title{ font-size: 18px; font-weight: 800; color: #1a202c; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
   
-  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-  .input-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 8px; color: var(--text-light); }
-  .input-group input, .input-group textarea { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; font-family: var(--font); outline: none; }
+  .form-grid-2{ display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 18px; }
+  .form-group{ display: flex; flex-direction: column; gap: 6px; }
+  .form-group label{ font-size: 13px; font-weight: 700; color: #4a5568; }
+  .form-group input, .form-group textarea{ width: 100%; padding: 11px 14px; border: 1px solid var(--border); border-radius: 10px; font-family: var(--font); font-size: 14px; outline: none; }
+  .form-group input:focus, .form-group textarea:focus{ border-color: var(--accent); }
+
+  /* TABLE PRODUITS */
+  .table-responsive{ overflow-x: auto; }
+  .admin-table{ width: 100%; border-collapse: collapse; min-width: 1000px; }
+  .admin-table th, .admin-table td{ padding: 14px 12px; border-bottom: 1px solid var(--border); text-align: left; font-size: 13px; vertical-align: middle; }
+  .admin-table th{ background: var(--bg-soft); color: #4a5568; font-weight: 700; }
+  .admin-table input{ width: 100%; padding: 8px 10px; border: 1px solid var(--border); border-radius: 8px; font-family: var(--font); font-size: 13px; outline: none; }
   
-  .admin-table-container { overflow-x: auto; }
-  .admin-table{ width:100%; border-collapse:collapse; min-width: 1000px;}
-  .admin-table th, .admin-table td{ padding:12px; border-bottom:1px solid var(--border); text-align:left; font-size:13px; vertical-align: middle;}
-  .admin-table th{ background:var(--bg-soft); color:var(--text-light); font-weight:600; }
-  .admin-table input{ width:100%; padding:8px; border:1px solid var(--border); border-radius:6px; font-family:var(--font); font-size:13px; outline: none;}
-  .order-badge { background: var(--accent-light); color: var(--accent-dark); padding: 4px 10px; border-radius: 20px; font-weight: 600; font-size: 12px;}
-  
-  .upload-btn-wrap { display: flex; flex-direction: column; align-items: center; gap: 4px; }
-  .btn-upload { background: var(--bg-soft); border: 1px solid var(--border); color: var(--text); padding: 6px 10px; font-size: 11px; border-radius: 6px; font-weight: 600; transition: .2s; cursor: pointer; width: 100%; text-align: center; font-family: var(--font);}
-  .btn-upload:hover { background: var(--border); }
-  .gallery-upload-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; margin-top: 5px;}
-  .gallery-upload-item { display: flex; flex-direction: column; align-items: center;}
-  .btn-delete-row { background: var(--danger); color: #fff; padding: 6px 10px; border-radius: 6px; font-size: 11px; font-weight: 600; cursor: pointer; border: none; font-family: var(--font); }
+  .upload-box-main{ display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .btn-upload-file{ background: var(--bg-soft); border: 1px solid var(--border); padding: 6px 10px; font-size: 11px; font-weight: 700; border-radius: 8px; cursor: pointer; transition:.2s; }
+  .btn-upload-file:hover{ background: var(--border); }
+  .gallery-grid-row{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+  .btn-del-prod{ background: #fff5f5; color: var(--danger); border: 1px solid #feb2b2; padding: 7px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; transition:.2s; }
+  .btn-del-prod:hover{ background: var(--danger); color: #fff; }
 
   /* EXPRESS CHECKOUT MODAL */
-  .modal-overlay { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); z-index: 2000; display: none; align-items: center; justify-content: center; padding: 20px;}
+  .modal-overlay { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.65); backdrop-filter: blur(4px); z-index: 2000; display: none; align-items: center; justify-content: center; padding: 20px;}
   .modal-overlay.show { display: flex; }
-  .modal-box { background: #fff; width: 100%; max-width: 480px; border-radius: 24px; padding: 25px; position: relative; box-shadow: 0 25px 50px rgba(0,0,0,0.25); max-height: 95vh; overflow-y: auto; }
+  .modal-box { background: #fff; width: 100%; max-width: 480px; border-radius: 24px; padding: 26px; position: relative; box-shadow: 0 25px 50px rgba(0,0,0,0.25); max-height: 95vh; overflow-y: auto; }
   .close-modal { position: absolute; top: 18px; right: 18px; font-size: 22px; color: var(--text-light); cursor:pointer; background: none; border: none; z-index: 10;}
   .modal-header-logo { text-align: center; margin-bottom: 12px; }
   
@@ -244,13 +235,12 @@ Voici le code complet mis à jour intégrant exactement l'ensemble de vos demand
     display: flex; 
     align-items: center; 
     border: 1px solid var(--border); 
-    border-radius: 10px; 
+    border-radius: 12px; 
     margin-bottom: 12px; 
     background: #fff; 
     overflow: hidden; 
     transition: 0.2s; 
   }
-  /* Style rouge en cas d'erreur de validation */
   .checkout-input-group.error { 
     border: 2px solid var(--danger) !important; 
     background: #fff5f5; 
@@ -311,10 +301,16 @@ Voici le code complet mis à jour intégrant exactement l'ensemble de vos demand
     text-align: center; 
   }
   .checkout-feature-item { display: flex; flex-direction: column; align-items: center; }
-  .checkout-feature-item i { font-size: 24px; color: var(--accent); margin-bottom: 6px; }
+  .checkout-feature-item i { font-size: 22px; color: var(--accent); margin-bottom: 6px; }
   .checkout-feature-item span { font-size: 10px; color: #4a5568; font-weight: 600; line-height: 1.25; }
 
-  @media(max-width:992px){ .product-grid{grid-template-columns:repeat(2,1fr);} .product-top{grid-template-columns:1fr; gap:32px;} .trust-grid{grid-template-columns:repeat(2,1fr);} }
+  @media(max-width:992px){ 
+    .product-grid{grid-template-columns:repeat(2,1fr);} 
+    .product-top{grid-template-columns:1fr; gap:32px;} 
+    .trust-grid{grid-template-columns:repeat(2,1fr);} 
+    .admin-layout{grid-template-columns: 1fr;}
+    .form-grid-2{grid-template-columns: 1fr;}
+  }
 </style>
 </head>
 <body>
@@ -325,15 +321,17 @@ Voici le code complet mis à jour intégrant exactement l'ensemble de vos demand
     <nav class="nav-left">
       <a href="#" class="nav-link active" data-page="page-home">Accueil</a>
       <a href="#" class="nav-link" data-page="page-home-products">Produits</a>
-      <a href="#" class="nav-link" data-page="page-contact" onclick="openContactInfo(event)">Contact</a>
+      <a href="#" class="nav-link" onclick="openContactInfo(event)">Contact</a>
     </nav>
 
-    <!-- Smiyet Yamza trje3 l page d'accueil -->
-    <a href="#" class="logo" id="logoHome" onclick="goToHome(event)">YAM<span>ZA</span></a>
+    <!-- LOGO CLICKABLE -->
+    <a href="#" class="logo" id="logoHome" onclick="goToHome(event)">
+      <span id="nav_brandName">YAM</span><span id="nav_brandSuffix" style="color:var(--text);">ZA</span>
+    </a>
 
     <div class="nav-right">
-      <div class="icon-btn" style="cursor:pointer;"><i class="fas fa-search"></i></div>
-      <div class="icon-btn" style="cursor:pointer;"><i class="far fa-user"></i></div>
+      <div class="icon-btn" style="cursor:pointer;" onclick="focusSearch()"><i class="fas fa-search"></i></div>
+      <div class="icon-btn" style="cursor:pointer;" onclick="openLoginPrompt()"><i class="far fa-user"></i></div>
       <div class="icon-btn cart-wrap" style="cursor:pointer;">
           <i class="fas fa-shopping-cart"></i>
           <span class="cart-count">0</span>
@@ -342,39 +340,42 @@ Voici le code complet mis à jour intégrant exactement l'ensemble de vos demand
   </div>
 </header>
 
-<!-- PAGE D'ACCUEIL -->
+<!-- PAGE ACCUEIL -->
 <section class="page active" id="page-home">
   <section class="hero">
     <div class="hero-inner">
+      <div class="hero-bg" id="site_heroBg"></div>
       <div class="hero-content">
         <span class="hero-tag" id="site_heroTag">🍂 Les Deals de l'Automne</span>
         <h1 id="site_heroTitle">Confort Absolu,<br>Jusqu'à -50%</h1>
         <p id="site_heroDesc">Rafraîchissez votre espace avec nos meilleurs articles — livraison rapide et paiement à la réception.</p>
-        <a href="#productsGrid" class="btn-primary">Profiter des offres →</a>
+        <a href="#productsGrid" class="btn-primary" id="site_heroBtnText">Profiter des offres →</a>
       </div>
     </div>
   </section>
 
+  <!-- TRUST BAR -->
   <section class="trust-bar">
     <div class="trust-grid">
-      <div class="trust-item"><div class="trust-icon"><i class="fas fa-truck"></i></div><div><h4>Livraison rapide</h4><p>Partout au Maroc</p></div></div>
-      <div class="trust-item"><div class="trust-icon"><i class="fas fa-money-bill-wave"></i></div><div><h4>Paiement à la livraison</h4><p>Payez en recevant</p></div></div>
-      <div class="trust-item"><div class="trust-icon"><i class="far fa-star"></i></div><div><h4>Produits de qualité</h4><p>Soigneusement vérifiés</p></div></div>
-      <div class="trust-item"><div class="trust-icon"><i class="fas fa-headset"></i></div><div><h4>Service client</h4><p>Toujours à votre écoute</p></div></div>
+      <div class="trust-item"><div class="trust-icon"><i class="fas fa-truck"></i></div><div><h4 id="site_t1_t">Livraison rapide</h4><p id="site_t1_s">Partout au Maroc</p></div></div>
+      <div class="trust-item"><div class="trust-icon"><i class="fas fa-money-bill-wave"></i></div><div><h4 id="site_t2_t">Paiement à la livraison</h4><p id="site_t2_s">Payez en recevant</p></div></div>
+      <div class="trust-item"><div class="trust-icon"><i class="far fa-star"></i></div><div><h4 id="site_t3_t">Produits de qualité</h4><p id="site_t3_s">Soigneusement vérifiés</p></div></div>
+      <div class="trust-item"><div class="trust-icon"><i class="fas fa-headset"></i></div><div><h4 id="site_t4_t">Service client</h4><p id="site_t4_s">Toujours à votre écoute</p></div></div>
     </div>
   </section>
 
+  <!-- SECTION PRODUITS -->
   <section class="products-section container" id="productsGrid">
     <div class="section-header">
-        <h2>Nos Produits</h2>
-        <a href="#" class="view-all">Tout afficher →</a>
+        <h2 id="site_productsHeading">Nos Produits</h2>
+        <a href="#" class="view-all" onclick="renderPage(1)">Tout afficher →</a>
     </div>
     <div class="product-grid" id="homeGrid"></div>
     <div class="pagination" id="paginationContainer"></div>
   </section>
 </section>
 
-<!-- PAGE PRODUIT -->
+<!-- PAGE PRODUIT DÉTAIL -->
 <section class="page" id="page-product">
   <div class="container breadcrumb">Accueil / Produits / <span id="crumbName">Produit</span></div>
   <div class="container product-top">
@@ -394,14 +395,14 @@ Voici le code complet mis à jour intégrant exactement l'ensemble de vos demand
           <button onclick="changeQty(1)">+</button>
       </div>
       
-      <!-- BOUTON WA3R B HARAKA KHFIFA (PULSE) W CHADA MN RAS L RAS -->
+      <!-- BOUTON COMMANDE PULSE -->
       <div class="btn-order-wrapper">
         <button class="btn-order" onclick="openModal()">
           <div class="btn-order-title">
             <i class="fas fa-shopping-cart"></i>
-            <span>أطلب من هنا - Commander</span>
+            <span id="site_btnOrderText">أطلب من هنا - Commander</span>
           </div>
-          <div class="btn-order-sub">Paiement à la livraison</div>
+          <div class="btn-order-sub" id="site_btnOrderSub">Paiement à la livraison</div>
         </button>
       </div>
     </div>
@@ -413,105 +414,212 @@ Voici le code complet mis à jour intégrant exactement l'ensemble de vos demand
   </section>
 </section>
 
-<!-- LOGIN ADMIN -->
+<!-- MODAL LOGIN ADMIN (#admin) -->
 <div class="login-page-neo" id="animatedLoginScreen">
-    <div class="neo-circle">
-        <button class="neo-close" onclick="closeLoginScreen()">✕</button>
-        <h2 class="neo-title">Login</h2>
-        <p class="neo-subtitle">Sign in to your Admin account</p>
-        <form class="neo-form" onsubmit="verifyAdminLogin(event)">
-            <div class="neo-input-group">
-                <i class="fas fa-user"></i>
-                <input type="email" id="adminEmailInput" class="neo-input" placeholder="Email" required>
-            </div>
-            <div class="neo-input-group">
-                <i class="fas fa-lock"></i>
-                <input type="password" id="adminPassInput" class="neo-input" placeholder="Password" required>
-            </div>
-            <button type="submit" class="neo-btn">SIGN IN</button>
-        </form>
-    </div>
+  <div class="login-card">
+    <span class="login-close" onclick="closeLoginScreen()">✕</span>
+    <i class="fas fa-user-shield" style="font-size:42px; color:var(--accent); margin-bottom:12px;"></i>
+    <h2>Espace Admin</h2>
+    <p>Connectez-vous pour gérer votre boutique YAMZA</p>
+    <form onsubmit="verifyAdminLogin(event)">
+      <input type="email" id="adminEmailInput" class="login-input" placeholder="Adresse Email" required>
+      <input type="password" id="adminPassInput" class="login-input" placeholder="Mot de passe" required>
+      <button type="submit" class="login-btn">Connexion au Dashboard</button>
+    </form>
+  </div>
 </div>
 
-<!-- ADMIN DASHBOARD -->
+<!-- ================= PANNEAU D'ADMINISTRATION PRO ================= -->
 <section class="page" id="page-admin">
   <div class="admin-wrap">
-    <div class="admin-header">
-      <h2>Tableau de Bord 🛠️</h2>
-      <div class="admin-actions">
-        <button class="btn-add-product" onclick="addNewProductRow()">➕ Ajouter Produit</button>
-        <button class="btn-save-admin" onclick="saveAllAdminData()">💾 Sauvegarder Tout</button>
+    
+    <div class="admin-top-bar">
+      <h2><i class="fas fa-sliders-h" style="color:var(--accent);"></i> Tableau de Bord Pro</h2>
+      <div style="display:flex; align-items:center;">
+        <button class="admin-btn-add" onclick="addNewProductRow()"><i class="fas fa-plus"></i> Nouveau Produit</button>
+        <button class="admin-btn-save" onclick="saveAllAdminData()"><i class="fas fa-save"></i> Sauvegarder Tout</button>
       </div>
     </div>
-    <div class="admin-tabs">
-      <button class="admin-tab active" onclick="switchAdminTab('tab-orders')">📦 Commandes (<span id="ordersCount">0</span>)</button>
-      <button class="admin-tab" onclick="switchAdminTab('tab-products')">🛍️ Produits & Images</button>
-      <button class="admin-tab" onclick="switchAdminTab('tab-settings')">⚙️ Paramètres du Site</button>
-    </div>
-    <div id="tab-orders" class="admin-tab-content active">
-      <div class="admin-table-container">
-        <table class="admin-table">
-          <thead>
-            <tr><th>Date</th><th>Client</th><th>Téléphone</th><th>Ville & Adresse</th><th>Produit</th><th>Total</th></tr>
-          </thead>
-          <tbody id="ordersTableBody"></tbody>
-        </table>
+
+    <div class="admin-layout">
+      <!-- SIDEBAR ADMIN -->
+      <div class="admin-sidebar">
+        <button class="admin-nav-item active" onclick="switchAdminTabPro('tab-pro-orders', this)">
+          <i class="fas fa-box"></i> Commandes <span class="count-badge" id="ordersCount">0</span>
+        </button>
+        <button class="admin-nav-item" onclick="switchAdminTabPro('tab-pro-products', this)">
+          <i class="fas fa-tags"></i> Tous les Produits <span class="count-badge" id="productsCount">0</span>
+        </button>
+        <button class="admin-nav-item" onclick="switchAdminTabPro('tab-pro-hero', this)">
+          <i class="fas fa-bullhorn"></i> Hero & Promo
+        </button>
+        <button class="admin-nav-item" onclick="switchAdminTabPro('tab-pro-branding', this)">
+          <i class="fas fa-paint-brush"></i> Logo & Textes
+        </button>
+        <button class="admin-nav-item" onclick="switchAdminTabPro('tab-pro-trust', this)">
+          <i class="fas fa-shield-alt"></i> Barre de Confiance
+        </button>
+        <button class="admin-nav-item" onclick="switchAdminTabPro('tab-pro-contact', this)">
+          <i class="fab fa-whatsapp"></i> WhatsApp & Tél
+        </button>
+      </div>
+
+      <!-- CONTENU ADMIN -->
+      <div class="admin-panel-box">
+        
+        <!-- ONGLET 1: COMMANDES -->
+        <div id="tab-pro-orders" class="admin-tab-pane active">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+            <div class="pane-title" style="margin-bottom:0; border:none; padding:0;">📦 Liste des Commandes Reçues</div>
+            <button class="btn-del-prod" onclick="clearAllOrders()"><i class="fas fa-trash"></i> Vider les commandes</button>
+          </div>
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr><th>Date</th><th>Client</th><th>Téléphone</th><th>Ville & Adresse</th><th>Produit</th><th>Total</th></tr>
+              </thead>
+              <tbody id="ordersTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ONGLET 2: PRODUITS -->
+        <div id="tab-pro-products" class="admin-tab-pane">
+          <div class="pane-title">🛍️ Gestion des Produits & Galerie d'Images</div>
+          <p style="font-size:13px; color:var(--text-light); margin-bottom:18px;">Modifiez les prix, titres, et chargez les images (Principale, 4 miniatures de galerie, et description longue).</p>
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th style="width:105px; text-align:center;">Principale</th>
+                  <th style="width:190px; text-align:center;">Galerie (4 Photos)</th>
+                  <th style="width:105px; text-align:center;">Description</th>
+                  <th>Nom du Produit</th>
+                  <th style="width:90px;">Ancien (dh)</th>
+                  <th style="width:90px;">Prix (dh)</th>
+                  <th style="width:65px;">Action</th>
+                </tr>
+              </thead>
+              <tbody id="adminProductList"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ONGLET 3: HERO & PROMO -->
+        <div id="tab-pro-hero" class="admin-tab-pane">
+          <div class="pane-title">📢 En-tête d'Accueil (Hero Section & Offre Saisonnière)</div>
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label>Badge de Promo (Tag du haut)</label>
+              <input type="text" id="set_heroTag" value="🍂 Les Deals de l'Automne">
+            </div>
+            <div class="form-group">
+              <label>Image de fond (URL de l'image)</label>
+              <input type="text" id="set_heroBgUrl" value="https://picsum.photos/seed/yamza-hero2/1400/700">
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom:18px;">
+            <label>Grand Titre Promo</label>
+            <input type="text" id="set_heroTitle" value="Confort Absolu, Jusqu'à -50%">
+          </div>
+          <div class="form-group" style="margin-bottom:18px;">
+            <label>Description du Hero</label>
+            <textarea id="set_heroDesc" rows="3">Rafraîchissez votre espace avec nos meilleurs articles — livraison rapide et paiement à la réception.</textarea>
+          </div>
+          <div class="form-group">
+            <label>Texte du Bouton Hero</label>
+            <input type="text" id="set_heroBtnText" value="Profiter des offres →">
+          </div>
+        </div>
+
+        <!-- ONGLET 4: BRANDING -->
+        <div id="tab-pro-branding" class="admin-tab-pane">
+          <div class="pane-title">🎨 Identité de la Marque & Textes</div>
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label>Nom de la Boutique (Première partie)</label>
+              <input type="text" id="set_brandName" value="YAM">
+            </div>
+            <div class="form-group">
+              <label>Suffixe de la Boutique (Deuxième partie)</label>
+              <input type="text" id="set_brandSuffix" value="ZA">
+            </div>
+            <div class="form-group">
+              <label>Titre Section Produits</label>
+              <input type="text" id="set_productsHeading" value="Nos Produits">
+            </div>
+            <div class="form-group">
+              <label>Texte Bouton Commande (Haut)</label>
+              <input type="text" id="set_btnOrderText" value="أطلب من هنا - Commander">
+            </div>
+            <div class="form-group">
+              <label>Texte Bouton Commande (Bas)</label>
+              <input type="text" id="set_btnOrderSub" value="Paiement à la livraison">
+            </div>
+          </div>
+        </div>
+
+        <!-- ONGLET 5: TRUST BAR -->
+        <div id="tab-pro-trust" class="admin-tab-pane">
+          <div class="pane-title">🛡️ Barre de Réassurance (4 Avantages)</div>
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label>Avantage 1: Titre</label>
+              <input type="text" id="set_t1_t" value="Livraison rapide">
+              <label style="margin-top:6px;">Avantage 1: Sous-titre</label>
+              <input type="text" id="set_t1_s" value="Partout au Maroc">
+            </div>
+            <div class="form-group">
+              <label>Avantage 2: Titre</label>
+              <input type="text" id="set_t2_t" value="Paiement à la livraison">
+              <label style="margin-top:6px;">Avantage 2: Sous-titre</label>
+              <input type="text" id="set_t2_s" value="Payez en recevant">
+            </div>
+            <div class="form-group">
+              <label>Avantage 3: Titre</label>
+              <input type="text" id="set_t3_t" value="Produits de qualité">
+              <label style="margin-top:6px;">Avantage 3: Sous-titre</label>
+              <input type="text" id="set_t3_s" value="Soigneusement vérifiés">
+            </div>
+            <div class="form-group">
+              <label>Avantage 4: Titre</label>
+              <input type="text" id="set_t4_t" value="Service client">
+              <label style="margin-top:6px;">Avantage 4: Sous-titre</label>
+              <input type="text" id="set_t4_s" value="Toujours à votre écoute">
+            </div>
+          </div>
+        </div>
+
+        <!-- ONGLET 6: CONTACT -->
+        <div id="tab-pro-contact" class="admin-tab-pane">
+          <div class="pane-title">📞 Coordonnées WhatsApp & Client</div>
+          <div class="form-group" style="max-width:450px;">
+            <label>Numéro WhatsApp de réception des commandes (ex: 2126XXXXXXXX)</label>
+            <input type="text" id="set_wa" value="212600000000">
+            <small style="color:var(--text-light); margin-top:4px;">Ne mettez pas de '+' ni d'espace. Exemple: 212612345678</small>
+          </div>
+        </div>
+
       </div>
     </div>
-    <div id="tab-products" class="admin-tab-content">
-      <p style="font-size:13px; color:gray; margin-bottom:15px;">Gérer les produits (ajouter, modifier, supprimer) et mettre à jour leurs images.</p>
-      <div class="admin-table-container">
-        <table class="admin-table">
-          <thead>
-            <tr>
-              <th style="width:110px; text-align:center;">Principale</th>
-              <th style="width:200px; text-align:center;">Galerie (4 Tsawer)</th>
-              <th style="width:110px; text-align:center;">Description</th>
-              <th>Nom du Produit</th>
-              <th style="width:90px;">Ancien Prix</th>
-              <th style="width:90px;">Nouveau Prix</th>
-              <th style="width:70px;">Action</th>
-            </tr>
-          </thead>
-          <tbody id="adminProductList"></tbody>
-        </table>
-      </div>
-    </div>
-    <div id="tab-settings" class="admin-tab-content">
-      <div class="form-grid">
-        <div class="input-group">
-          <label>Numéro WhatsApp</label>
-          <input type="text" id="set_wa" value="212600000000">
-        </div>
-        <div class="input-group">
-          <label>Texte Promo (Hero Tag)</label>
-          <input type="text" id="set_heroTag" value="🍂 Les Deals de l'Automne">
-        </div>
-        <div class="input-group">
-          <label>Gros Titre Accueil (Hero)</label>
-          <input type="text" id="set_heroTitle" value="Confort Absolu, Jusqu'à -50%">
-        </div>
-        <div class="input-group">
-          <label>Sous-titre Accueil</label>
-          <textarea id="set_heroDesc" rows="2">Rafraîchissez votre espace avec nos meilleurs articles — livraison rapide et paiement à la réception.</textarea>
-        </div>
-      </div>
-    </div>
+
   </div>
 </section>
 
-<!-- MODAL EXPRESS CHECKOUT AVEC VALIDATION ROUGE -->
+<!-- MODAL EXPRESS CHECKOUT -->
 <div class="modal-overlay" id="checkoutModal">
   <div class="modal-box">
     <button class="close-modal" onclick="closeModal()">✕</button>
-    <div class="modal-header-logo"><h2 class="logo">YAM<span>ZA</span></h2></div>
+    <div class="modal-header-logo">
+      <h2 class="logo"><span id="modal_brand1">YAM</span><span id="modal_brand2" style="color:var(--text);">ZA</span></h2>
+    </div>
     
     <div class="modal-order-summary" style="margin-bottom:18px; border-bottom:1px solid var(--border); padding-bottom:15px;">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
         <span style="font-size:13px; color:var(--text-light);">Sous-total</span>
         <span style="font-weight:600; font-size:14px;" id="summarySubtotal">0.00 dh</span>
       </div>
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
         <span style="font-size:13px; color:var(--text-light);">Expédition</span>
         <span style="font-weight:700; font-size:13px; color:var(--accent);">Gratuit</span>
       </div>
@@ -570,35 +678,73 @@ Voici le code complet mis à jour intégrant exactement l'ensemble de vos demand
 </div>
 
 <script>
+/* ================= PARAMÈTRES PAR DÉFAUT ================= */
 const DEFAULT_SETTINGS = {
   wa: "212600000000",
   heroTag: "🍂 Les Deals de l'Automne",
-  heroTitle: "Confort Absolu,<br>Jusqu'à -50%",
-  heroDesc: "Rafraîchissez votre espace avec nos meilleurs articles — livraison rapide et paiement à la réception."
+  heroTitle: "Confort Absolu, Jusqu'à -50%",
+  heroDesc: "Rafraîchissez votre espace avec nos meilleurs articles — livraison rapide et paiement à la réception.",
+  heroBgUrl: "https://picsum.photos/seed/yamza-hero2/1400/700",
+  heroBtnText: "Profiter des offres →",
+  brandName: "YAM",
+  brandSuffix: "ZA",
+  productsHeading: "Nos Produits",
+  btnOrderText: "أطلب من هنا - Commander",
+  btnOrderSub: "Paiement à la livraison",
+  t1_t: "Livraison rapide", t1_s: "Partout au Maroc",
+  t2_t: "Paiement à la livraison", t2_s: "Payez en recevant",
+  t3_t: "Produits de qualité", t3_s: "Soigneusement vérifiés",
+  t4_t: "Service client", t4_s: "Toujours à votre écoute"
 };
-let SITE_SETTINGS = JSON.parse(localStorage.getItem('yamza_settings')) || DEFAULT_SETTINGS;
+
+let SITE_SETTINGS = JSON.parse(localStorage.getItem('yamza_settings_pro')) || DEFAULT_SETTINGS;
 
 const DEFAULT_PRODUCTS = [
-  {title:"PARFUM ET FRAÎCHEUR EN UN", seed:"yamza-m1", descImg:"yamza-d1", gal:["yamza-g1-1","yamza-g1-2","yamza-g1-3","yamza-g1-4"], old:499.00, price:189.99},
-  {title:"Écouteurs Sans Fil Galaxy", seed:"yamza-m2", descImg:"yamza-d2", gal:["yamza-g2-1","yamza-g2-2","yamza-g2-3","yamza-g2-4"], old:499.00, price:369.99},
-  {title:"Filet de Jeu Polyvalent", seed:"yamza-m3", descImg:"yamza-d3", gal:["yamza-g3-1","yamza-g3-2","yamza-g3-3","yamza-g3-4"], old:999.00, price:769.99},
-  {title:"Voiture Jouet Amusante", seed:"yamza-m4", descImg:"yamza-d4", gal:["yamza-g4-1","yamza-g4-2","yamza-g4-3","yamza-g4-4"], old:399.00, price:289.99},
-  {title:"Masseur de Main", seed:"yamza-m5", descImg:"yamza-d5", gal:["yamza-g5-1","yamza-g5-2","yamza-g5-3","yamza-g5-4"], old:650.00, price:549.99},
-  {title:"Tondeuse 2-en-1", seed:"yamza-m6", descImg:"yamza-d6", gal:["yamza-g6-1","yamza-g6-2","yamza-g6-3","yamza-g6-4"], old:355.00, price:289.99},
-  {title:"Antivol à Code", seed:"yamza-m7", descImg:"yamza-d7", gal:["yamza-g7-1","yamza-g7-2","yamza-g7-3","yamza-g7-4"], old:450.00, price:339.99},
-  {title:"Clé USB 4-en-1", seed:"yamza-m8", descImg:"yamza-d8", gal:["yamza-g8-1","yamza-g8-2","yamza-g8-3","yamza-g8-4"], old:499.00, price:399.99},
+  {title:"Masseur Ergonomique Confortable", seed:"yamza-m1", descImg:"yamza-d1", gal:["yamza-g1-1","yamza-g1-2","yamza-g1-3","yamza-g1-4"], old:999.00, price:399.00},
+  {title:"Lampe LED Solaire Voiture", seed:"yamza-m2", descImg:"yamza-d2", gal:["yamza-g2-1","yamza-g2-2","yamza-g2-3","yamza-g2-4"], old:250.00, price:199.00},
+  {title:"Coussin Ergonomique Confort du Dos", seed:"yamza-m3", descImg:"yamza-d3", gal:["yamza-g3-1","yamza-g3-2","yamza-g3-3","yamza-g3-4"], old:499.00, price:369.00},
+  {title:"Diffuseur de Parfum Intelligent", seed:"yamza-m4", descImg:"yamza-d4", gal:["yamza-g4-1","yamza-g4-2","yamza-g4-3","yamza-g4-4"], old:450.00, price:369.00},
+  {title:"Masseur de Main Électrique", seed:"yamza-m5", descImg:"yamza-d5", gal:["yamza-g5-1","yamza-g5-2","yamza-g5-3","yamza-g5-4"], old:650.00, price:549.00},
+  {title:"Tondeuse Beauté 2-en-1", seed:"yamza-m6", descImg:"yamza-d6", gal:["yamza-g6-1","yamza-g6-2","yamza-g6-3","yamza-g6-4"], old:355.00, price:289.00},
+  {title:"Antivol Haute Sécurité", seed:"yamza-m7", descImg:"yamza-d7", gal:["yamza-g7-1","yamza-g7-2","yamza-g7-3","yamza-g7-4"], old:450.00, price:339.00},
+  {title:"Clé USB 4-en-1 Multi-support", seed:"yamza-m8", descImg:"yamza-d8", gal:["yamza-g8-1","yamza-g8-2","yamza-g8-3","yamza-g8-4"], old:499.00, price:399.00}
 ];
-let BASE_PRODUCTS = JSON.parse(localStorage.getItem('yamza_products')) || DEFAULT_PRODUCTS;
+
+let BASE_PRODUCTS = JSON.parse(localStorage.getItem('yamza_products_pro')) || DEFAULT_PRODUCTS;
 let ALL_PRODUCTS = [];
 let activeProductId = 1;
 let currentPage = 1;
 const itemsPerPage = 8;
 
 function initSite() {
+  // Appliquer le branding
+  document.getElementById('nav_brandName').innerText = SITE_SETTINGS.brandName || "YAM";
+  document.getElementById('nav_brandSuffix').innerText = SITE_SETTINGS.brandSuffix || "ZA";
+  document.getElementById('modal_brand1').innerText = SITE_SETTINGS.brandName || "YAM";
+  document.getElementById('modal_brand2').innerText = SITE_SETTINGS.brandSuffix || "ZA";
+
+  // Appliquer le hero
   document.getElementById('site_heroTag').innerText = SITE_SETTINGS.heroTag || DEFAULT_SETTINGS.heroTag;
-  document.getElementById('site_heroTitle').innerHTML = SITE_SETTINGS.heroTitle;
-  document.getElementById('site_heroDesc').innerText = SITE_SETTINGS.heroDesc;
-  
+  document.getElementById('site_heroTitle').innerHTML = SITE_SETTINGS.heroTitle || DEFAULT_SETTINGS.heroTitle;
+  document.getElementById('site_heroDesc').innerText = SITE_SETTINGS.heroDesc || DEFAULT_SETTINGS.heroDesc;
+  document.getElementById('site_heroBg').style.backgroundImage = `url('${SITE_SETTINGS.heroBgUrl || DEFAULT_SETTINGS.heroBgUrl}')`;
+  document.getElementById('site_heroBtnText').innerText = SITE_SETTINGS.heroBtnText || "Profiter des offres →";
+
+  // Appliquer la trust bar
+  document.getElementById('site_t1_t').innerText = SITE_SETTINGS.t1_t || "Livraison rapide";
+  document.getElementById('site_t1_s').innerText = SITE_SETTINGS.t1_s || "Partout au Maroc";
+  document.getElementById('site_t2_t').innerText = SITE_SETTINGS.t2_t || "Paiement à la livraison";
+  document.getElementById('site_t2_s').innerText = SITE_SETTINGS.t2_s || "Payez en recevant";
+  document.getElementById('site_t3_t').innerText = SITE_SETTINGS.t3_t || "Produits de qualité";
+  document.getElementById('site_t3_s').innerText = SITE_SETTINGS.t3_s || "Soigneusement vérifiés";
+  document.getElementById('site_t4_t').innerText = SITE_SETTINGS.t4_t || "Service client";
+  document.getElementById('site_t4_s').innerText = SITE_SETTINGS.t4_s || "Toujours à votre écoute";
+
+  // Bouton order et titres
+  document.getElementById('site_productsHeading').innerText = SITE_SETTINGS.productsHeading || "Nos Produits";
+  document.getElementById('site_btnOrderText').innerText = SITE_SETTINGS.btnOrderText || "أطلب من هنا - Commander";
+  document.getElementById('site_btnOrderSub').innerText = SITE_SETTINGS.btnOrderSub || "Paiement à la livraison";
+
   ALL_PRODUCTS = BASE_PRODUCTS.map((base, i) => ({
     id: i + 1,
     title: base.title,
@@ -660,7 +806,6 @@ function renderPagination() {
   document.getElementById('paginationContainer').innerHTML = html;
 }
 
-/* REDIRECTION VERS L'ACCUEIL LORS D'UN CLIC SUR YAMZA */
 function goToHome(e) {
   if(e) e.preventDefault();
   document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
@@ -680,61 +825,96 @@ function checkAdminHash() {
     document.getElementById('animatedLoginScreen').classList.remove('active');
   }
 }
-
+function openLoginPrompt(){ window.location.hash = '#admin'; }
 function closeLoginScreen() {
-    document.getElementById('animatedLoginScreen').classList.remove('active');
-    window.location.hash = ''; 
+  document.getElementById('animatedLoginScreen').classList.remove('active');
+  window.location.hash = ''; 
 }
 
 function verifyAdminLogin(e) {
   e.preventDefault();
-  const email = document.getElementById('adminEmailInput').value;
-  const pass = document.getElementById('adminPassInput').value;
+  const email = document.getElementById('adminEmailInput').value.trim();
+  const pass = document.getElementById('adminPassInput').value.trim();
   
   if(email === "yahyabelkhoukh00@gmail.com" && pass === "Moyah2010-") {
     document.getElementById('animatedLoginScreen').classList.remove('active');
     openAdminPanel();
   } else {
-    alert("Email awla Mot de passe ghalet !");
+    alert("Email ou Mot de passe incorrect !");
   }
 }
 
-function switchAdminTab(tabId) {
-  document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.admin-tab-content').forEach(c => c.classList.remove('active'));
-  event.target.classList.add('active');
-  document.getElementById(tabId).classList.add('active');
+function switchAdminTabPro(paneId, btn) {
+  document.querySelectorAll('.admin-nav-item').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.admin-tab-pane').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(paneId).classList.add('active');
 }
 
 function openContactInfo(e) {
   e.preventDefault();
-  alert("Service Client YAMZA:\nWhatsApp: +" + SITE_SETTINGS.wa + "\nDisponibilité: 24/7 pour vos commandes !");
+  window.open(`https://wa.me/${SITE_SETTINGS.wa}`, '_blank');
 }
 
 function openAdminPanel() {
   showPage('page-admin');
-  document.getElementById('set_wa').value = SITE_SETTINGS.wa;
+  
+  // Remplir les champs du Hero
   document.getElementById('set_heroTag').value = SITE_SETTINGS.heroTag || DEFAULT_SETTINGS.heroTag;
-  document.getElementById('set_heroTitle').value = SITE_SETTINGS.heroTitle;
-  document.getElementById('set_heroDesc').value = SITE_SETTINGS.heroDesc;
-  renderAdminProductsList();
+  document.getElementById('set_heroTitle').value = SITE_SETTINGS.heroTitle || DEFAULT_SETTINGS.heroTitle;
+  document.getElementById('set_heroDesc').value = SITE_SETTINGS.heroDesc || DEFAULT_SETTINGS.heroDesc;
+  document.getElementById('set_heroBgUrl').value = SITE_SETTINGS.heroBgUrl || DEFAULT_SETTINGS.heroBgUrl;
+  document.getElementById('set_heroBtnText').value = SITE_SETTINGS.heroBtnText || DEFAULT_SETTINGS.heroBtnText;
 
+  // Branding
+  document.getElementById('set_brandName').value = SITE_SETTINGS.brandName || "YAM";
+  document.getElementById('set_brandSuffix').value = SITE_SETTINGS.brandSuffix || "ZA";
+  document.getElementById('set_productsHeading').value = SITE_SETTINGS.productsHeading || "Nos Produits";
+  document.getElementById('set_btnOrderText').value = SITE_SETTINGS.btnOrderText || "أطلب من هنا - Commander";
+  document.getElementById('set_btnOrderSub').value = SITE_SETTINGS.btnOrderSub || "Paiement à la livraison";
+
+  // Trust Bar
+  document.getElementById('set_t1_t').value = SITE_SETTINGS.t1_t || DEFAULT_SETTINGS.t1_t;
+  document.getElementById('set_t1_s').value = SITE_SETTINGS.t1_s || DEFAULT_SETTINGS.t1_s;
+  document.getElementById('set_t2_t').value = SITE_SETTINGS.t2_t || DEFAULT_SETTINGS.t2_t;
+  document.getElementById('set_t2_s').value = SITE_SETTINGS.t2_s || DEFAULT_SETTINGS.t2_s;
+  document.getElementById('set_t3_t').value = SITE_SETTINGS.t3_t || DEFAULT_SETTINGS.t3_t;
+  document.getElementById('set_t3_s').value = SITE_SETTINGS.t3_s || DEFAULT_SETTINGS.t3_s;
+  document.getElementById('set_t4_t').value = SITE_SETTINGS.t4_t || DEFAULT_SETTINGS.t4_t;
+  document.getElementById('set_t4_s').value = SITE_SETTINGS.t4_s || DEFAULT_SETTINGS.t4_s;
+
+  // WhatsApp
+  document.getElementById('set_wa').value = SITE_SETTINGS.wa || DEFAULT_SETTINGS.wa;
+
+  renderAdminProductsList();
+  loadOrdersInAdmin();
+}
+
+function loadOrdersInAdmin() {
   let orders = JSON.parse(localStorage.getItem('yamza_orders')) || [];
   document.getElementById('ordersCount').innerText = orders.length;
+  document.getElementById('productsCount').innerText = BASE_PRODUCTS.length;
   
   if(orders.length === 0) {
-    document.getElementById('ordersTableBody').innerHTML = `<tr><td colspan="6" style="text-align:center;color:gray;">Aucune commande pour le moment.</td></tr>`;
+    document.getElementById('ordersTableBody').innerHTML = `<tr><td colspan="6" style="text-align:center;color:gray;padding:24px;">Aucune commande pour le moment.</td></tr>`;
   } else {
-    document.getElementById('ordersTableBody').innerHTML = orders.reverse().map(o => `
+    document.getElementById('ordersTableBody').innerHTML = orders.slice().reverse().map(o => `
       <tr>
         <td style="font-size:12px; color:gray;">${o.date}</td>
         <td><strong>${o.name}</strong></td>
-        <td><a href="https://wa.me/212${o.phone.replace(/^0/,'')}" target="_blank" style="color:var(--accent); font-weight:600;">${o.phone}</a></td>
+        <td><a href="https://wa.me/212${o.phone.replace(/^0/,'')}" target="_blank" style="color:var(--accent); font-weight:700;"><i class="fab fa-whatsapp"></i> ${o.phone}</a></td>
         <td>${o.city} - <span style="font-size:12px;color:gray;">${o.address}</span></td>
-        <td><span class="order-badge">${o.qty}x</span> ${o.product}</td>
-        <td style="font-weight:700; color:var(--accent-dark);">${o.total}</td>
+        <td><span style="background:var(--accent-light);color:var(--accent-dark);padding:3px 8px;border-radius:20px;font-weight:700;">${o.qty}x</span> ${o.product}</td>
+        <td style="font-weight:800; color:var(--accent-dark);">${o.total}</td>
       </tr>
     `).join('');
+  }
+}
+
+function clearAllOrders() {
+  if(confirm("Voulez-vous supprimer l'historique des commandes ?")) {
+    localStorage.removeItem('yamza_orders');
+    loadOrdersInAdmin();
   }
 }
 
@@ -746,56 +926,57 @@ function renderAdminProductsList() {
     
     html += `<tr>
       <td>
-        <div class="upload-btn-wrap">
-            <img src="${productImg(p.seed)}" style="width:50px;height:50px;object-fit:cover;border-radius:6px;" id="preview_img_${index}">
-            <button class="btn-upload" onclick="document.getElementById('file_upload_${index}').click()">📂 Principale</button>
-            <input type="file" id="file_upload_${index}" style="display:none;" accept="image/png, image/jpeg, image/jpg" onchange="handleImageUpload(event, ${index}, 'main')">
+        <div class="upload-box-main">
+            <img src="${productImg(p.seed)}" style="width:50px;height:50px;object-fit:cover;border-radius:8px;border:1px solid var(--border);" id="preview_img_${index}">
+            <button class="btn-upload-file" onclick="document.getElementById('file_upload_${index}').click()"><i class="fas fa-camera"></i> Changer</button>
+            <input type="file" id="file_upload_${index}" style="display:none;" accept="image/*" onchange="handleImageUpload(event, ${index}, 'main')">
             <input type="hidden" id="admin_seed_${index}" value="${p.seed}">
         </div>
       </td>
       <td>
-        <div class="gallery-upload-grid">
+        <div class="gallery-grid-row">
             ${[0,1,2,3].map(g => `
-                <div class="gallery-upload-item">
-                    <img src="${productImg(pGal[g])}" style="width:40px;height:40px;object-fit:cover;border-radius:4px;" id="preview_gal_${index}_${g}">
-                    <button class="btn-upload" style="padding:4px; font-size:9px; margin-top:2px;" onclick="document.getElementById('file_gal_${index}_${g}').click()">📂 ${g+1}</button>
-                    <input type="file" id="file_gal_${index}_${g}" style="display:none;" accept="image/png, image/jpeg, image/jpg" onchange="handleImageUpload(event, ${index}, 'gal_${g}')">
+                <div style="display:flex;flex-direction:column;align-items:center;">
+                    <img src="${productImg(pGal[g])}" style="width:38px;height:38px;object-fit:cover;border-radius:6px;border:1px solid var(--border);" id="preview_gal_${index}_${g}">
+                    <button class="btn-upload-file" style="padding:2px 6px; font-size:9px; margin-top:2px;" onclick="document.getElementById('file_gal_${index}_${g}').click()">${g+1}</button>
+                    <input type="file" id="file_gal_${index}_${g}" style="display:none;" accept="image/*" onchange="handleImageUpload(event, ${index}, 'gal_${g}')">
                     <input type="hidden" id="admin_gal_${index}_${g}" value="${pGal[g]}">
                 </div>
             `).join('')}
         </div>
       </td>
       <td>
-        <div class="upload-btn-wrap">
-            <img src="${descImgUrl(pDesc)}" style="width:50px;height:50px;object-fit:cover;border-radius:6px;" id="preview_desc_${index}">
-            <button class="btn-upload" onclick="document.getElementById('file_desc_${index}').click()">📂 Description</button>
-            <input type="file" id="file_desc_${index}" style="display:none;" accept="image/png, image/jpeg, image/jpg" onchange="handleImageUpload(event, ${index}, 'desc')">
+        <div class="upload-box-main">
+            <img src="${descImgUrl(pDesc)}" style="width:50px;height:50px;object-fit:cover;border-radius:8px;border:1px solid var(--border);" id="preview_desc_${index}">
+            <button class="btn-upload-file" onclick="document.getElementById('file_desc_${index}').click()"><i class="fas fa-image"></i> Bas</button>
+            <input type="file" id="file_desc_${index}" style="display:none;" accept="image/*" onchange="handleImageUpload(event, ${index}, 'desc')">
             <input type="hidden" id="admin_desc_${index}" value="${pDesc}">
         </div>
       </td>
       <td><input type="text" id="admin_title_${index}" value="${p.title}"></td>
       <td><input type="number" id="admin_old_${index}" value="${p.old}" step="0.01"></td>
       <td><input type="number" id="admin_price_${index}" value="${p.price}" step="0.01"></td>
-      <td><button class="btn-delete-row" onclick="deleteProductRow(${index})">Supprimer</button></td>
+      <td><button class="btn-del-prod" onclick="deleteProductRow(${index})"><i class="fas fa-trash"></i></button></td>
     </tr>`;
   });
   document.getElementById('adminProductList').innerHTML = html;
+  document.getElementById('productsCount').innerText = BASE_PRODUCTS.length;
 }
 
 function addNewProductRow() {
-  BASE_PRODUCTS.push({
-    title: "Nouveau Produit",
-    seed: "yamza-new",
-    descImg: "yamza-new",
-    gal: ["yamza-new", "yamza-new", "yamza-new", "yamza-new"],
+  BASE_PRODUCTS.unshift({
+    title: "Nouveau Produit Pro",
+    seed: "yamza-new-" + Date.now(),
+    descImg: "yamza-new-desc",
+    gal: ["yamza-new-1", "yamza-new-2", "yamza-new-3", "yamza-new-4"],
     old: 500.00,
-    price: 250.00
+    price: 299.00
   });
   renderAdminProductsList();
 }
 
 function deleteProductRow(index) {
-  if(confirm("Voulez-vous vraiment supprimer ce produit ?")) {
+  if(confirm("Supprimer ce produit définitivement ?")) {
     BASE_PRODUCTS.splice(index, 1);
     renderAdminProductsList();
   }
@@ -809,13 +990,13 @@ function handleImageUpload(event, index, type) {
         const img = new Image();
         img.onload = function() {
             const canvas = document.createElement('canvas');
-            const MAX_WIDTH = type === 'desc' ? 800 : 400;
+            const MAX_WIDTH = type === 'desc' ? 700 : 350;
             const scaleSize = MAX_WIDTH / img.width;
             canvas.width = MAX_WIDTH;
             canvas.height = img.height * scaleSize;
             const ctx = canvas.getContext('2d');
             ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-            const base64String = canvas.toDataURL('image/jpeg', 0.6);
+            const base64String = canvas.toDataURL('image/jpeg', 0.55);
             if(type === 'main') {
                 document.getElementById('admin_seed_' + index).value = base64String;
                 document.getElementById('preview_img_' + index).src = base64String;
@@ -835,36 +1016,47 @@ function handleImageUpload(event, index, type) {
 
 function saveAllAdminData() {
   SITE_SETTINGS = {
-    wa: document.getElementById('set_wa').value,
-    heroTag: document.getElementById('set_heroTag').value,
-    heroTitle: document.getElementById('set_heroTitle').value,
-    heroDesc: document.getElementById('set_heroDesc').value
+    wa: document.getElementById('set_wa').value.trim(),
+    heroTag: document.getElementById('set_heroTag').value.trim(),
+    heroTitle: document.getElementById('set_heroTitle').value.trim(),
+    heroDesc: document.getElementById('set_heroDesc').value.trim(),
+    heroBgUrl: document.getElementById('set_heroBgUrl').value.trim(),
+    heroBtnText: document.getElementById('set_heroBtnText').value.trim(),
+    brandName: document.getElementById('set_brandName').value.trim(),
+    brandSuffix: document.getElementById('set_brandSuffix').value.trim(),
+    productsHeading: document.getElementById('set_productsHeading').value.trim(),
+    btnOrderText: document.getElementById('set_btnOrderText').value.trim(),
+    btnOrderSub: document.getElementById('set_btnOrderSub').value.trim(),
+    t1_t: document.getElementById('set_t1_t').value.trim(), t1_s: document.getElementById('set_t1_s').value.trim(),
+    t2_t: document.getElementById('set_t2_t').value.trim(), t2_s: document.getElementById('set_t2_s').value.trim(),
+    t3_t: document.getElementById('set_t3_t').value.trim(), t3_s: document.getElementById('set_t3_s').value.trim(),
+    t4_t: document.getElementById('set_t4_t').value.trim(), t4_s: document.getElementById('set_t4_s').value.trim()
   };
-  localStorage.setItem('yamza_settings', JSON.stringify(SITE_SETTINGS));
+  localStorage.setItem('yamza_settings_pro', JSON.stringify(SITE_SETTINGS));
   
   let newProducts = [];
   BASE_PRODUCTS.forEach((p, index) => {
     let galArray = [];
     for(let i=0; i<4; i++){
-        galArray.push(document.getElementById(`admin_gal_${index}_${i}`).value);
+      galArray.push(document.getElementById(`admin_gal_${index}_${i}`).value);
     }
     newProducts.push({
       title: document.getElementById(`admin_title_${index}`).value,
       seed: document.getElementById(`admin_seed_${index}`).value,
       descImg: document.getElementById(`admin_desc_${index}`).value,
       gal: galArray,
-      old: parseFloat(document.getElementById(`admin_old_${index}`).value),
-      price: parseFloat(document.getElementById(`admin_price_${index}`).value)
+      old: parseFloat(document.getElementById(`admin_old_${index}`).value) || 0,
+      price: parseFloat(document.getElementById(`admin_price_${index}`).value) || 0
     });
   });
   
   try {
-      localStorage.setItem('yamza_products', JSON.stringify(newProducts));
-      BASE_PRODUCTS = newProducts;
-      initSite();
-      alert("Modifications et produits sauvegardés avec succès !");
+    localStorage.setItem('yamza_products_pro', JSON.stringify(newProducts));
+    BASE_PRODUCTS = newProducts;
+    initSite();
+    alert("Bravo ! Toutes les modifications de votre boutique ont été enregistrées avec succès !");
   } catch (e) {
-      alert("Erreur: Les images sont trop grandes pour l'espace LocalStorage.");
+    alert("Attention : Trop d'images lourdes dans le stockage local. Utilisez des images compressées.");
   }
 }
 
@@ -908,12 +1100,17 @@ function openProduct(id){
 }
 
 function changeMainImg(element, src) {
-    document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
-    element.classList.add('active');
-    document.getElementById('galleryMain').src = src;
+  document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+  element.classList.add('active');
+  document.getElementById('galleryMain').src = src;
 }
 
-function changeQty(delta){ const input = document.getElementById('qtyInput'); let val = parseInt(input.value) + delta; if(val < 1) val = 1; input.value = val; }
+function changeQty(delta){ 
+  const input = document.getElementById('qtyInput'); 
+  let val = parseInt(input.value) + delta; 
+  if(val < 1) val = 1; 
+  input.value = val; 
+}
 
 const checkoutModal = document.getElementById('checkoutModal');
 function openModal() {
@@ -950,9 +1147,7 @@ function submitOrder(e) {
   if(!address) { document.getElementById('group_clientAddress').classList.add('error'); hasError = true; }
   if(!city) { document.getElementById('group_clientCity').classList.add('error'); hasError = true; }
 
-  if(hasError) {
-    return;
-  }
+  if(hasError) return;
 
   const p = ALL_PRODUCTS.find(x => x.id === activeProductId);
   const qty = parseInt(document.getElementById('qtyInput').value);
@@ -971,8 +1166,13 @@ function submitOrder(e) {
   closeModal(); 
   window.open(waLink, '_blank');
 }
+
+function focusSearch() {
+  goToHome();
+  setTimeout(() => {
+    document.getElementById('productsGrid').scrollIntoView({behavior: 'smooth'});
+  }, 100);
+}
 </script>
 </body>
 </html>
-
-```
