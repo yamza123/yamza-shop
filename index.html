@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
   :root{
-    /* LWAN JDAD B ZRE9 (Bleu moderne) */
+    /* Thème Bleu YAMZA */
     --accent:#2563eb; 
     --accent-dark:#1d4ed8;
     --accent-light:#eff6ff;
@@ -28,7 +28,7 @@
   html{scroll-behavior:smooth;}
   body{
     font-family:var(--font); color:var(--text); background:var(--bg);
-    padding-top:114px; /* 78px (header) + 36px (top bar) */
+    padding-top:114px; 
     -webkit-font-smoothing:antialiased;
   }
   img{max-width:100%; display:block;}
@@ -39,7 +39,7 @@
   /* BANDEAU DÉFILANT EN HAUT (MARQUEE) */
   .top-marquee-bar {
     position: fixed; top: 0; left: 0; right: 0; height: 36px;
-    background: #67e8f9; /* Cyan / Teal */
+    background: #67e8f9; 
     color: #fff; font-weight: 800; font-size: 11px; letter-spacing: 0.5px;
     display: flex; align-items: center; overflow: hidden; z-index: 1001;
   }
@@ -53,7 +53,7 @@
     100% { transform: translateX(-100%); }
   }
 
-  /* HEADER */
+  /* HEADER & NAVIGATION */
   .site-header{
     position:fixed; top:36px; left:0; right:0; z-index:1000;
     background:rgba(255,255,255,.98); box-shadow: 0 1px 10px rgba(0,0,0,0.05);
@@ -88,7 +88,7 @@
   .page.active{display:block;}
   @keyframes fade{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
 
-  /* HERO */
+  /* HERO SECTION */
   .hero{margin:24px auto 0; max-width:1240px; padding:0 24px;}
   .hero-inner{ border-radius:24px; overflow:hidden; position:relative; min-height:440px; display:flex; align-items:center; background:#e2e8f0; padding:60px; }
   .hero-bg{ position:absolute; inset:0; background-position:center; background-size:cover; opacity:0.65; z-index:1; }
@@ -111,6 +111,7 @@
   .products-section{padding:20px 24px 80px;}
   .section-header{ display:flex; align-items:center; justify-content:space-between; margin-bottom:32px; }
   .section-header h2{font-size:26px; font-weight:800; color: #0f172a;}
+  .view-all{ font-size:14px; font-weight:600; color:var(--accent-dark); transition:.2s; }
   
   .product-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:24px;}
   .product-card{ background:transparent; position:relative; cursor:pointer; }
@@ -261,6 +262,7 @@
   .btn-upload-file{ background: var(--bg-soft); border: 1px solid var(--border); padding: 5px 8px; font-size: 11px; font-weight: 700; border-radius: 6px; cursor: pointer; transition:.2s; white-space:nowrap;}
   .btn-upload-file:hover{ background: var(--border); }
   
+  /* GALERIE 2x2 DANS L'ADMIN POUR ÉVITER L'ÉCRASEMENT */
   .gallery-grid-row{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
   
   .btn-del-prod{ background: #fef2f2; color: var(--danger); border: 1px solid #fecaca; padding: 7px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; transition:.2s; }
@@ -1049,13 +1051,15 @@ function handleImageUpload(event, index, type) {
         const img = new Image();
         img.onload = function() {
             const canvas = document.createElement('canvas');
-            const MAX_WIDTH = type === 'desc' ? 700 : 350;
+            const MAX_WIDTH = type === 'desc' ? 600 : 300; 
             const scaleSize = MAX_WIDTH / img.width;
             canvas.width = MAX_WIDTH;
             canvas.height = img.height * scaleSize;
             const ctx = canvas.getContext('2d');
             ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-            const base64String = canvas.toDataURL('image/jpeg', 0.55);
+            // Compression à 40% pour économiser beaucoup d'espace localStorage !
+            const base64String = canvas.toDataURL('image/jpeg', 0.40);
+            
             if(type === 'main') {
                 document.getElementById('admin_seed_' + index).value = base64String;
                 document.getElementById('preview_img_' + index).src = base64String;
@@ -1115,7 +1119,7 @@ function saveAllAdminData() {
     initSite();
     alert("Bravo ! Toutes les modifications de votre boutique ont été enregistrées avec succès !");
   } catch (e) {
-    alert("Attention : Trop d'images lourdes dans le stockage local. Utilisez des images compressées.");
+    alert("Attention : Le stockage local est plein. Essayez de supprimer de vieux produits ou utilisez des images plus petites.");
   }
 }
 
